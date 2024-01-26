@@ -1,10 +1,10 @@
 /*
-    
+Put images and sprites in a folder called 'assets'
 */
 
 class Entity
 {
-  // Initialize
+  // Initialize entity with filename for image (not path) position, speed and scale (defualts to 1)
   constructor(imageFileName, xPosition, yPosition, xSpeed, ySpeed, xScale = 1, yScale = 1)
   {
     let path = 'assets/' + imageFileName;
