@@ -13,6 +13,7 @@ class Projectile extends Entity
 
     update()
     {
+        //updating x and y
         this.x = this.x + this.xSpeed;
         this.y = this.y + this.ySpeed;
     }
