@@ -21,7 +21,7 @@ class Projectile extends Entity
     checkCollision(other, minumumDistance)
     {
         //returns true if the distance between "this" object and the "other" object is less than "minumumDistance"
-        return dist(this.x, this.y, other.xPosition, this.yPosition) < minumumDistance;
+        return dist(this.x, this.y, other.x, other.y) < minumumDistance;
     }
 
 
