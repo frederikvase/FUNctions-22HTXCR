@@ -1,7 +1,8 @@
-class Projectile
+class Projectile extends Entity
 {
     constructor()
     {
-        
+        super()
     }
+    
 }
