@@ -27,28 +27,28 @@ class GameManager
     }
 
 
-        // Use this function to track the increase in bullet damage from power-ups
-        damageIncrease()
-        {
-    
-        }
-
-        // Use this function to track the increase in attack speed from power-ups
-        attackSpeedIncrease()
-        {
-
-        }
-
-        // Use this function to track the increase in how many enemies bullets can penetrate acquired from power-ups
-        bulletPenetrationIncrease()
-        {
-
-        }
-
-        // Use this function to track the increase in bullet capacity between reloads from power-ups
-        ammoCapacityIncrease()
-        {
-
-        }
+    // Use this function to track the increase in bullet damage from power-ups
+    damageIncrease()
+    {
 
     }
+
+    // Use this function to track the increase in attack speed from power-ups
+    attackSpeedIncrease()
+    {
+
+    }
+
+    // Use this function to track the increase in how many enemies bullets can penetrate acquired from power-ups
+    bulletPenetrationIncrease()
+    {
+
+    }
+
+    // Use this function to track the increase in bullet capacity between reloads from power-ups
+    ammoCapacityIncrease()
+    {
+
+    }
+
+}
