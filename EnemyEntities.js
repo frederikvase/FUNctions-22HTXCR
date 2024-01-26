@@ -1,73 +1,93 @@
-class EnemyEntities
+class EnemyEntities extends entityClass
 {
-    constructor()
+    constructor(x, y, xSpeed)
+    {
+        super(x, y, xSpeed);
+
+        this.xStart = this.x;
+    }
+
+    //Movement test for entities, will eventually be deleted
+    TemporaryMovement()
     {
 
     }
 
-    //Movement til at teste classen, bliver slettet i endelig program
-    MidlertidigMovement()
+    //Returns the x- and y-coordinates of the hostile entity
+    EntityCoordinates()
+    {
+        return [this.x, this.y];
+    }
+
+    //Checks for collision between hostile entity and player
+    EntityPlayerCollision(playerCoords)
     {
 
     }
 
-    //Koordinatet til entitien, til at beregne collision
-    EntityKoordinat()
+    //Entity that moves with a constant function
+    ConstantEntity()
+    {
+        this.x = this.x + this.xSpeed;
+        this.k = this.y1;
+        this.y = this.k * 1;
+    }
+
+    //Entity that moves with a linear function
+    LinearEntity()
+    {
+        this.x = this.x + this.xSpeed;
+        this.k = (this.y2 - this.y1) / width + (this.diameter / 2);
+        this.flytY = this.y1 - (this.k * this.xStart);
+        this.y = (this.k * this.x) + this.flytY;
+    }
+
+    //Entity  that moves with a quadratic function
+    QuadraticEntity()
+    {
+        this.x = this.x + this.xSpeed;
+        this.k = (this.y1 - this.y2) / (pow(this.xStart, this.p) - pow(width + (this.diameter / 2), this.p));
+        this.flytY = this.y1 - this.k * pow(this.xStart, this.p);
+        this.y = this.k * (this.x * this.x) + this.flytY;
+    }
+
+    //Entity that moves with a cubic function
+    CubicEntity()
+    {
+        this.x = this.x + this.xSpeed;
+        this.k = (this.y1 - this.y2) / (pow(this.xStart, this.p) - pow(width + (this.diameter / 2), this.p));
+        this.flytY = this.y1 - this.k * pow(this.xStart, this.p);
+        this.y = this.k * (this.x * this.x * this.x) + this.flytY; 
+    }
+
+    //Entity that moves with a exponential function
+    ExponentialEntity()
+    {
+        this.x = this.x + this.xSpeed;
+        this.potens = this.y2 / (this.y1 * (width + (this.diameter / 2) - this.xStart));
+        this.a = pow(10, this.potens);
+        this.k = this.y2 / (pow(this.a, width + (this.diameter / 2)));
+        this.y = this.k * (pow(this.a, this.x));
+    }
+
+    //Entity that moves with a logarithmic function
+    LogarithmicEntity()
     {
 
     }
 
-    //Detect om entity har collision med player
-    CollisionPlayer(playerKoords)
-    {
-
-    }
-
-    //Entity der bevæger sig med nultegrads funktion
-    NultegradsEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med førstegrads funktion
-    FoerstegradsEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med andengrads funktion
-    AndengradsEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med tredjegrads funktion
-    TredjegradsEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med eksponentiel funktion
-    EksponentielEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med logaritmisk funktion
-    LogaritmiskEntity()
-    {
-
-    }
-
-    //Entity der bevæger sig med sinus funktion
+    //Entity that moves with a sinus function/curve
     SinusEntity()
     {
 
     }
 
-    //Entity der bevæger sig med forskellige rod funktioner
-    RodEntity()
+    //Entity that moves with a root function
+    RootEntity()
     {
-
+        this.x = this.x + this.xSpeed;
+        this.k = (this.y1 - this.y2) / (pow(this.xStart,  this.p));
+        this.flytY = this.y1 - this.k * (pow(this.xStart, this.p));
+        this.y = this.k * (pow(this.x, this.p)) + this.flytY;
     }
 }
