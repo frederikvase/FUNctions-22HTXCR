@@ -20,7 +20,7 @@ class GameManager
     }
 
     // Show info on screen
-    display()
+    display(x = 0, y = 0)
     {
         // Score
 
@@ -42,7 +42,8 @@ class GameManager
     // Get amount of enemies to spawn in this level
     getEnemiesToSpawn()
     {
-
+        // Linear scaling (this should be changed to something better in the future so scaling uses more parameters than just amount of enemies)
+        return this.enemyMultiplier * this.level + this.enemiesFirstRound;
     }
 
     // Use this function to track the increase in bullet damage from power-ups
