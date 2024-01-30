@@ -14,24 +14,17 @@ class Projectile extends Entity
     edgeCollision()
     {
         //if the projectile object reaches out of bounds, it should return true.
-        if(this.x > width)
-        {
-            return true;
-        }
-        else if(this.x < 0)
-        {
-            return true;
-        }
-        else if(this.y < 0)
-        {
-            return true;
-        }
-        else if(this.y > height)
-        {
-            return true;
-        }
+        return this.x > width || this.x < 0 || this.y < 0 || this.y > height;
     }
     
-    
+    checkDistance(other)
+    {
+        return dist(this.x, this.y, other.x, other.y);
+    }
+
+    homing(other)
+    {
+
+    }
 
 }
