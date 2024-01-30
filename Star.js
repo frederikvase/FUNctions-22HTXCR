@@ -2,18 +2,13 @@ class Star extends Entity
   {
     constructor()
     {
-        let filename = "whitestar.png";
-        super(filename, random(-100,width+100), random(-100,height+100), random(-1,1), random(-1,1));
-
-        this.x=random(-100,width+100);
-        this.y=random(-100,height+100);
-        this.xSpeed=random(-1,1);
-        this.ySpeed=random(-1,1);
+        let filename = "storstjerne.png";
+        super(filename, random(0,width/2), random(0,height/2), random(-1,1), random(-1,1), 30, 30);
 
         this.r=random(3,7);
         this.size=random(0,1);
         
-        this.farve(random(220,255),random(200,255),random(100,130));
+        this.farve = [random(220,255),random(200,255),random(100,130)];
 
         this.glitterSpeed=random(-3,3);
         
@@ -37,17 +32,17 @@ class Star extends Entity
     starShow()
     {
       
-   /*   push();
+      push();
       noStroke();
       fill(255,this.o);
       circle(this.x,this.y,this.r/2);
       fill(245, 229, 127,this.o);
       circle(this.x,this.y,this.r);
-      pop();*/
+      pop();
       
       imageMode(CENTER);
-      tint(255,255,255,0);
-      image(filename);
+      tint(255,255,255,this.o);
+      image(filename,200,200);
 
       
     }
@@ -74,7 +69,7 @@ class Star extends Entity
       this.glitterSpeed=this.glitterSpeed*-1;
       }
 
-            this.xSpeed=random(-0.15,0.15);
+      this.xSpeed=random(-0.15,0.15);
       this.ySpeed=random(-0.15,0.15);
       
       this.x=this.x+this.xSpeed;
