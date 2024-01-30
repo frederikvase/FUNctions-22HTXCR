@@ -21,7 +21,7 @@ class Entity
   }
 
   // Draw entity's sprite at current position and with current scale
-  draw()
+  drawSprite()
   {
     image(this.sprite, this.x, this.y, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
   }
