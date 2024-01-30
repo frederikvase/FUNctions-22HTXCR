@@ -23,7 +23,7 @@ class Entity
   // Draw entity's sprite at current position and with current scale
   drawSprite()
   {
-    image(this.sprite, this.x, this.y, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
+    image(this.sprite, this.x - this.sprite.width, this.y - this.sprite.height, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
   }
 
   // Move the entity's position by its current speed
