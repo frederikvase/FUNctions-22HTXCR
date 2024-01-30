@@ -20,9 +20,20 @@ class Star extends Entity
         this.weight=random(1,4);
 
         this.angle=random(0,360);
+
+        // variables for shoothing star
+        this.startX = random(0, width);
+        this.startY = random(0, height);
+        this.endX = random(0, width);
+        this.endY = random(0, height);
+        this.currentX = this.startX;
+        this.currentY = this.startY;
+        this.maxDistance = dist(this.startX, this.startY, this.endX, this.endY);
+
+        
     } 
     
-    show()
+    starShow()
     {
       
       push();
@@ -63,5 +74,30 @@ class Star extends Entity
       
       this.x=this.x+this.xSpeed;
             this.y=this.y+this.ySpeed;
+    }
+    updateShootingStar(){
+  
+      this.currentX = lerp(this.currentX, this.endX, 0.01);
+      this.currentY = lerp(this.currentY, this.endY, 0.02);
+  
+      // Nulstil stjerneskudet, når det når slutpunktet
+      const afstand = dist(this.currentX, this.currentY, this.startX, this.startY);
+      if (afstand > this.maxDistance * 0.95) {
+        this.startX = random(0, 400);
+        this.startY = random(0, 400);
+        this.currentX = this.startX;
+        this.currentY = this.startY;
+        this.endX = random(0, width);
+        this.endY = random(0, height);
+        this.maxDistance = dist(this.startX, this.startY, this.endX, this.endY);
+        this.r = random(1, 4);
+      }
+      
+    }
+    
+      drawShootingStar(){
+      fill(245, 229, 127, 100);
+      noStroke();
+      ellipse(this.currentX, this.currentY, this.r, this.r);
     }
   }
