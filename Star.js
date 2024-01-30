@@ -76,12 +76,14 @@ class Star extends Entity
             this.y=this.y+this.ySpeed;
     }
     updateShootingStar(){
-  
+      // moves the shooiting star
       this.currentX = lerp(this.currentX, this.endX, 0.01);
       this.currentY = lerp(this.currentY, this.endY, 0.02);
   
-      // Nulstil stjerneskudet, når det når slutpunktet
+      // Finds 95% of the distance between the two points in wich the shooting star travels
       const afstand = dist(this.currentX, this.currentY, this.startX, this.startY);
+
+      // Starts the shooting star again when it reaches 95% of the distance
       if (afstand > this.maxDistance * 0.95) {
         this.startX = random(0, 400);
         this.startY = random(0, 400);
