@@ -4,7 +4,7 @@ class Sky
     {
         this.stars = [];
 
-        for (let i = 0; i<3; i++)
+        for (let i = 0; i<2; i++)
         {
          this.stars[i]= new Star();
         }
