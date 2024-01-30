@@ -112,11 +112,19 @@ class GameManager
     }
 }
 
-class textBox
+class TextBox
 {
-    constructor(fgR = 255, fgG = 255, fgB = 255, fgA = 255, bgR = 0, bgG = 0, bgB = 0, bgA = 255, text = [])
+    /*
+    Autoscaling customizable textbox
+    text requires an array of strings
+    font defaults to undefined
+    */
+    constructor(text = [], font = undefined, margin = 3, fgR = 255, fgG = 255, fgB = 255, fgA = 255, bgR = 0, bgG = 0, bgB = 0, bgA = 255)
     {
         this.text = text;
+
+        this.font = font;
+        this.margin = margin
 
         // Foreground color
         this.fgR = fgR;
@@ -133,48 +141,70 @@ class textBox
         // Size
         this.width;
         this.height;
-        this.calculateSize();
+
+        // This function is used to know if size should be updated
+        this.textUpdated = true;
     }
 
-    updateText(newText)
+    setText(newText)
     {
         this.text = newText;
-        this.calculateSize();
+        this.textUpdated = true;
     }
 
+    // Will update the size of the boundingbox for the textbox based on textsize (Do not call this function from outside the object)
     updateSize()
     {
         // Calculate width
-        // Get longest string in the text array (not done with this)
+
+        // Get longest string in the text array
         this.longestString = this.text.reduce(
             (lastString, currentString) => {
-                if (lastString.length) {
-                    
+                if (lastString.length < currentString.length)
+                {
+                    return currentString;
                 }
-            }
+                else
+                {
+                    return lastString;
+                }
+            },
+            ""
         )
-
+        this.width = textWidth(this.longestString);
+        
         // Calculate height
         this.height = textAscent() * this.text.length;
+
+        this.textUpdated = false;
     }
 
-    display(x = 0, y = 0) // Needs testing
+    // Display the textbox on canvas
+    display(x = 0, y = 0)
     {
         push();
-        
-        // Draw box
-        noStroke();
-        fill(this.bgR, this.bgG, this.bgB, this.bgA);
 
-        rect(this.x, this.y, this.width, this.height);
+        // Set style and size
+        if (this.font != undefined) // Set font if a non default font is defined
+        {
+            textFont(this.font);
+        }
+        if (this.textUpdated == true)
+        {
+            this.updateSize();
+        }
+        textAlign(LEFT, TOP);
+        noStroke();
+
+        // Draw box
+        fill(this.bgR, this.bgG, this.bgB, this.bgA);
+        rect(x, y, this.width + this.margin * 2, this.height + this.margin * 2);
 
         // Draw text
         fill(this.fgR, this.fgG, this.fgB, this.fgA);
-        textAlign(LEFT, TOP);
-
         for (var line = 0; line < this.text.length; line = line + 1)
         {
-            text(this.text[line], x, y + textAscent() * line);
+            text(this.text[line], x + this.margin, y + textAscent() * line + this.margin);
         }
 
         pop();
