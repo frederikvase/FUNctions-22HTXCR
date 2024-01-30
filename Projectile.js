@@ -19,12 +19,19 @@ class Projectile extends Entity
     
     checkDistance(other)
     {
+        //returns the distance of this and other
         return dist(this.x, this.y, other.x, other.y);
     }
 
     homing(other)
     {
+        //first find the angle between this and other
+        let angle = atan2(other.y - this.y, other.x - this.x);
+        let homingSpeed = 3;
 
+        //sets the speed to match the direction of other akumala akumala
+        this.xSpeed = homingSpeed * cos(angle);
+        this.ySpeed = homingSpeed * sin(angle);
     }
 
 }
