@@ -146,6 +146,7 @@ class TextBox
         this.textUpdated = true;
     }
 
+    // Set new text for the textbox. newText has to be an array of strings.
     setText(newText)
     {
         this.text = newText;
