@@ -18,12 +18,18 @@ class Entity
 
     this.xScale = xScale;
     this.yScale = yScale;
+
+    this.xOrigo = 0;
+    this.yOrigo = 0;
+
+    this.width = this.sprite.width * this.xScale;
+    this.height = this.sprite.height * this.yScale;
   }
 
   // Draw entity's sprite at current position and with current scale
   drawSprite()
   {
-    image(this.sprite, this.x, this.y, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
+    image(this.sprite, this.x - this.xOrigo, this.y - this.yOrigo, this.width, this.height);
   }
 
   // Move the entity's position by its current speed
@@ -76,17 +82,31 @@ class Entity
   {
     this.xScale = xScale;
     this.yScale = yScale;
+
+    this.width = this.sprite.width * this.xScale;
+    this.height = this.sprite.height * this.yScale;
   }
 
   // Set scale on x-axis
   setScaleX(xScale)
   {
     this.xScale = xScale;
+
+    this.width = this.sprite.width * this.xScale;
   }
 
   // Set scale on y-axis
   setScaleY(yScale)
   {
     this.yScale = yScale;
+
+    this.height = this.sprite.height * this.yScale;
+  }
+
+  // Set origin of entity (where the center of the sprite is)
+  setOrigo(xOrigo, yOrigo)
+  {
+    this.xOrigo = xOrigo;
+    this.yOrigo = yOrigo;
   }
 }

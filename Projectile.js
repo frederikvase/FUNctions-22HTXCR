@@ -2,6 +2,7 @@ class Projectile extends Entity
 {
     constructor(imageFileName, x, x, xSpeed, ySpeed, xScale, yScale)
     {
+        //steal entity attributes >:)
         super(imageFileName, x, y, xSpeed, ySpeed, xScale, yScale);
     }
 
@@ -14,24 +15,24 @@ class Projectile extends Entity
     edgeCollision()
     {
         //if the projectile object reaches out of bounds, it should return true.
-        if(this.x > width)
-        {
-            return true;
-        }
-        else if(this.x < 0)
-        {
-            return true;
-        }
-        else if(this.y < 0)
-        {
-            return true;
-        }
-        else if(this.y > height)
-        {
-            return true;
-        }
+        return this.x > width || this.x < 0 || this.y < 0 || this.y > height;
     }
     
-    
+    checkDistance(other)
+    {
+        //returns the distance of this and other
+        return dist(this.x, this.y, other.x, other.y);
+    }
+
+    homing(other)
+    {
+        //first find the angle between this and other
+        let angle = atan2(other.y - this.y, other.x - this.x);
+        let homingSpeed = 3;
+
+        //sets the speed to match the direction of other akumala akumala
+        this.xSpeed = homingSpeed * cos(angle);
+        this.ySpeed = homingSpeed * sin(angle);
+    }
 
 }

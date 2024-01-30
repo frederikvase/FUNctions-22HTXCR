@@ -1,65 +1,66 @@
-
 class Player extends Entity
 {
-    constructor(imageFileName, xPosition, yPosition, xSpeed, ySpeed, xScale, yScale, rotationSpeed = 1, InertiaAmmount = 0.1)
+    constructor(xPosition, yPosition, xSpeed, ySpeed, xScale, yScale, rotationSpeed = 1, InertiaAmmount = 0.1)
     {
-        super(imageFileName, xPosition, yPosition, xSpeed, ySpeed, xScale, yScale);
-        this.icon = loadImage('assets/player.png') //change this to the actual player icon
-
+        super("player90.png", xPosition, yPosition, xSpeed, ySpeed, xScale, yScale);
         this.rotationSpeed = rotationSpeed;
 
         //inertia is a value added to the rotation and position of the player
         //it increases as the player moves and rotates
-        this.rotationIntertia = 0;
-        this.positionIntertia = 0;
-        this.InertiaAmmount = InertiaAmmount;
         
-        this.angle = 0;
-        this.postition = createVector(xPosition, yPosition);
+        this.speed = 5;
         
-        
-        this.speed = 10;
-
-
-
         //inputs
         this.wIsPressed = false;
         this.aIsPressed = false;
         this.sIsPressed = false;
         this.dIsPressed = false;
         
+        //NICE MOVEMENT
+        this.rotationIntertia = 0;
+        this.positionIntertia = 0;
+        this.InertiaAmmount = InertiaAmmount;
+        
+        this.angle = 0;
+        this.postition = createVector(xPosition, yPosition);
+        this.icon = loadImage('assets/player.png')
     }
-
+    
+    
     playerDraw()
     {
         //this function includes drawing the ui around the player
-
         push();
         translate(this.x, this.y);
         rotate(this.angle += this.rotationIntertia);
         image(this.icon, (this.xScale * 20) * -1, (this.yScale * 12) * -1, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
 
-        //ui
+        // ui
 
-        //inertia indicator
-        noStroke()
-        fill(20, 20, 200, 50)
-        rect(-80, -60, 40, 40)
+        // inertia indicator
+        noStroke();
+        fill(20, 20, 200, 50);
+        rect(-80, -60, 40, 40);
     
-        stroke(0)
-        line(-60, -60, -60, -20)
-        line(-80, -40, -40, -40)
-        fill(200)
-        circle(-60 + this.rotationIntertia * 60, -40 - this.positionIntertia * 40, 5)
-
-
-
-        translate(0, 0)
+        stroke(0);
+        line(-60, -60, -60, -20);
+        line(-80, -40, -40, -40);
+        fill(200);
+        circle(-60 + this.rotationIntertia * 60, -40 - this.positionIntertia * 40, 5);
+        translate(0, 0);
         pop();
     }
 
-    playerMove()
+    playerMovement()
     {
+        this.inputManager();
+        
+        let spriteSizeX = this.sprite.width*this.xScale;
+        let spriteSizeY = this.sprite.width*this.yScale;
+
+        this.x = constrain(this.x, spriteSizeX/2, width - spriteSizeX/2);
+        this.y = constrain(this.y, spriteSizeY/2, height - spriteSizeY/2);
+
         //move forward
         if(this.wIsPressed == true)
         {
@@ -117,6 +118,33 @@ class Player extends Entity
         {
             this.positionIntertia = this.positionIntertia + this.InertiaAmmount / 2;
         }
+    }   
+
+    handleInput()
+    {
+        let spriteSizeX = this.sprite.width*this.xScale;
+        let spriteSizeY = this.sprite.width*this.yScale;
+
+        this.x = constrain(this.x, spriteSizeX, width - spriteSizeX);
+        this.y = constrain(this.y, 0, height - spriteSizeY);
+
+        this.inputManager();
+        if (this.wIsPressed)
+        {
+            this.setSpeedY(-this.speed);
+            console.log("W is pressed");
+        } 
+        else if (this.sIsPressed)
+        {
+            this.setSpeedY(this.speed);
+            console.log("S is pressed");
+        } 
+        else 
+        {
+            this.setSpeedY(0);
+        }
+
+        this.setSpeedX(0);
     }
 
     inputManager()
@@ -137,6 +165,7 @@ class Player extends Entity
          {
             //console.log("s");
             this.sIsPressed = true;
+
          }
          else
          {
@@ -166,5 +195,5 @@ class Player extends Entity
          }
         
     }
-
 }
+
