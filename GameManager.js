@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 class GameManager
 {
     constructor(enemyMultiplier = 1.5, enemiesFirstRound = 10)
@@ -92,3 +93,72 @@ class GameManager
         }
     }
 }
+class textBox
+{
+    constructor(fgR = 255, fgG = 255, fgB = 255, fgA = 255, bgR = 0, bgG = 0, bgB = 0, bgA = 255, text = [])
+    {
+        this.text = text;
+
+        // Foreground color
+        this.fgR = fgR;
+        this.fgG = fgG;
+        this.fgB = fgB;
+        this.fgA = fgA;
+
+        // Background color
+        this.bgR = bgR;
+        this.bgG = bgG;
+        this.bgB = bgB;
+        this.bgA = bgA;
+
+        // Size
+        this.width;
+        this.height;
+        this.calculateSize();
+    }
+
+    updateText(newText)
+    {
+        this.text = newText;
+        this.calculateSize();
+    }
+
+    updateSize()
+    {
+        // Calculate width
+        // Get longest string in the text array (not done with this)
+        this.longestString = this.text.reduce(
+            (lastString, currentString) => {
+                if (lastString.length) {
+                    
+                }
+            }
+        )
+
+        // Calculate height
+        this.height = textAscent() * this.text.length;
+    }
+
+    display(x = 0, y = 0) // Needs testing
+    {
+        push();
+        
+        // Draw box
+        noStroke();
+        fill(this.bgR, this.bgG, this.bgB, this.bgA);
+
+        rect(this.x, this.y, this.width, this.height);
+
+        // Draw text
+        fill(this.fgR, this.fgG, this.fgB, this.fgA);
+        textAlign(LEFT, TOP);
+
+        for (var line = 0; line < this.text.length; line = line + 1)
+        {
+            text(this.text[line], x, y + textAscent() * line);
+        }
+
+        pop();
+    }
+}
+>>>>>>> Stashed changes
