@@ -1,93 +1,115 @@
 class EnemyEntities extends entityClass
 {
-    constructor(x, y, xSpeed)
+    constructor(x, xSpeed, diameter)
     {
-        super(x, y, xSpeed);
+        super(x, xSpeed);
 
-        this.xStart = this.x;
+        this.xStart = x;
+        this.y1 = random(0, 400);
+        this.y2 = random(0, 400);
+
+        this.HostileEntitySpeed = xSpeed;
+
+        this.diameter = diameter;
     }
 
-    //Movement test for entities, will eventually be deleted
-    TemporaryMovement()
+    choseFunction(functionType)
     {
+        switch(functionType) //If new function is added, add another case here that matches the type of function
+        {
+            case "constant":
+                this.constantEntity();
+                break;
+            case "linear":
+                this.linearEntity();
+                break;
+            case "quadratic":
+                this.quadraticEntity();
+                break;
+            case "cubic":
+                this.cubicEntity();
+                break;
+            case "exponential":
+                this.exponentialEntity();
+                break;
+            case "sinus":
+                this.sinusEntity();
+                break;
+            case "root":
+                this.rootEntity();
+                break;
 
+        }
     }
 
     //Returns the x- and y-coordinates of the hostile entity
-    EntityCoordinates()
+    entityCoordinates()
     {
         return [this.x, this.y];
     }
 
     //Checks for collision between hostile entity and player
-    EntityPlayerCollision(playerCoords)
+    entityPlayerCollision(playerCoords)
     {
-
+        if((playerCoords[1] - this.y) / (this.playerCoords[0] - this.x) <= playerLength)
+        {
+            //Lose life
+        }
     }
 
-    //Entity that moves with a constant function
-    ConstantEntity()
+    show()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = this.y1;
-        this.y = this.k * 1;
+        circle(this.x, height - this.y, this.diameter);
+    }
+
+    //List of functions
+
+    //Entity that moves with a constant function
+    constantEntity()
+    {
+        this.x = this.x + this.HostileEntitySpeed;
+        this.y = random(0 + (this.diameter / 2), height - (this.diameter / 2));
     }
 
     //Entity that moves with a linear function
-    LinearEntity()
+    linearEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = (this.y2 - this.y1) / width + (this.diameter / 2);
-        this.flytY = this.y1 - (this.k * this.xStart);
-        this.y = (this.k * this.x) + this.flytY;
+
     }
 
     //Entity  that moves with a quadratic function
-    QuadraticEntity()
+    quadraticEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = (this.y1 - this.y2) / (pow(this.xStart, this.p) - pow(width + (this.diameter / 2), this.p));
-        this.flytY = this.y1 - this.k * pow(this.xStart, this.p);
-        this.y = this.k * (this.x * this.x) + this.flytY;
+
     }
 
     //Entity that moves with a cubic function
-    CubicEntity()
+    cubicEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = (this.y1 - this.y2) / (pow(this.xStart, this.p) - pow(width + (this.diameter / 2), this.p));
-        this.flytY = this.y1 - this.k * pow(this.xStart, this.p);
-        this.y = this.k * (this.x * this.x * this.x) + this.flytY; 
+
     }
 
     //Entity that moves with a exponential function
-    ExponentialEntity()
+    exponentialEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.potens = this.y2 / (this.y1 * (width + (this.diameter / 2) - this.xStart));
-        this.a = pow(10, this.potens);
-        this.k = this.y2 / (pow(this.a, width + (this.diameter / 2)));
-        this.y = this.k * (pow(this.a, this.x));
+
     }
 
     //Entity that moves with a logarithmic function
-    LogarithmicEntity()
+    logarithmicEntity()
     {
-
+ 
     }
 
     //Entity that moves with a sinus function/curve
-    SinusEntity()
-    {
+    sinusEntity()
+    {   
 
     }
 
     //Entity that moves with a root function
-    RootEntity()
+    rootEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = (this.y1 - this.y2) / (pow(this.xStart,  this.p));
-        this.flytY = this.y1 - this.k * (pow(this.xStart, this.p));
-        this.y = this.k * (pow(this.x, this.p)) + this.flytY;
+
     }
 }
