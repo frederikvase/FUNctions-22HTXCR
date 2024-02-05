@@ -25,7 +25,7 @@ class GameManager
         {
             if (!localStorage.highscore)
             {
-                localStorage.highscore = JSON.stringify();
+                localStorage.highscore = JSON.stringify(0);
             }
         }
 
