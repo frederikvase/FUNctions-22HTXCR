@@ -15,6 +15,21 @@ class GameManager
         this.enemiesFirstRound = enemiesFirstRound;
 
         this.font = font;
+
+        this.scoreBox = new TextBox(
+            ["Highscore: " + this.highscore, "Score" + this.score], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
+        );
+
+        // Initialize undefined localStorage data
+        if (typeof (Storage) !== "undefined") 
+        {
+            if (!localStorage.highscore)
+            {
+                localStorage.highscore = JSON.stringify();
+            }
+        }
+
+        this.loadHighscore();
     }
 
     // Update highscore to score if highscore > score
@@ -23,33 +38,37 @@ class GameManager
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
+
+            // Save highsore
+            this.saveHighscore();
         }
     }
 
-    // Show info on screen
-    display(x = 0, y = 0)
+    // Save current highscore to localstorage
+    saveHighscore()
     {
-        push();
+        localStorage.highscore = JSON.stringify(this.highscore);
+    }
 
-        // Style
-        textAlign(LEFT, TOP)
-        fill(0, 255);
+    // Load current highscore from localstorage
+    loadHighscore()
+    {
+        this.highscore = JSON.parse(localStorage.highscore);
+    }
 
-        // Bounding box for score text
-        // Calculate box size from text width and text ascent
-        
-        if (this.font != undefined) // Set font if a non default font is defined
-        {
-            textFont(this.font);
-        }
-        
+    // Main game update loop (Use this if game is driven by game manager)
+    updateGame()
+    {
+        this.displayScore();
+
+    }
+
+    // Show score on screen
+    displayScore(x = 0, y = 0)
+    {        
         // Score
-        text("Highscore: " + this.highscore, x, y);
-        text("Score: " + this.score, x, y + textAscent());
-
-        // Level up!?
-
-        pop();
+        this.scoreBox.setText(["Highscore: " + this.highscore, "Score: " + this.score]);
+        this.scoreBox.display(0, 0);
     }
 
     // Add amount to score
@@ -65,24 +84,18 @@ class GameManager
     }
 
     // Get amount of enemies to spawn in this level
-    getEnemiesToSpawn()
+    getEnemiesToSpawn(level)
     {
-        if(this.level<=4)
-        {
-            // Linear scaling with a bit of randomness to make the game less repetative
-            return abs(this.enemyMultiplier * this.level * 5 + random(0,7) + this.enemiesFirstRound)
-        }
-        if(this.level<=7)
-        {
-             // same as level 0 to 4 with linear scaling but with bigger scaling
-            return abs(this.enemyMultiplier * this.level * 7 + random(0,7)+ this.enemiesFirstRound)
-        }
-
-        //can be extended as needed just change the if statement for more levels incluted or make more
-
-
+        //Stair scaling (like jakes relationship scaling from adventure time) ask ulf for more info
+        return this.enemyMultiplier * Math.floor(level / 4) + this.enemiesFirstRound;
     }
+    
 
+    getEnemiesType(level)
+    {   
+        // must start on level 0 because mirsad want 1 enemy on level 1 
+        return (level % 4);
+    }
     // Use this function to track the increase in bullet damage from power-ups
     damageIncrease()
     {

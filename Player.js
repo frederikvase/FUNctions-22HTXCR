@@ -23,7 +23,10 @@ class Player extends Entity
         
         this.angle = 0;
         this.postition = createVector(xPosition, yPosition);
-        this.icon = loadImage('assets/player.png')
+        this.icon = loadImage('assets/player.png');
+
+        this.bullets = [];
+        this.bulletSpeed = 20
     }
     
     
@@ -33,7 +36,7 @@ class Player extends Entity
         push();
         translate(this.x, this.y);
         rotate(this.angle += this.rotationIntertia);
-        image(this.icon, (this.xScale * 20) * -1, (this.yScale * 12) * -1, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
+        image(this.icon, this.xScale - 150, this.yScale - 150, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
 
         // ui
 
@@ -120,7 +123,7 @@ class Player extends Entity
         }
     }   
 
-    handleInput()
+    /*handleInput()
     {
         let spriteSizeX = this.sprite.width*this.xScale;
         let spriteSizeY = this.sprite.width*this.yScale;
@@ -146,7 +149,7 @@ class Player extends Entity
 
         this.setSpeedX(0);
     }
-
+    */
     inputManager()
     {
         //A
@@ -195,5 +198,24 @@ class Player extends Entity
          }
         
     }
-}
 
+    shoot()
+    {
+        console.log(this.bullets.length)
+        if(keyIsDown(32) && frameCount%10    == 0)
+        {
+            this.bullets.push(new Projectile("bigbullet.png", this.x, this.y, sin(this.angle) * this.bulletSpeed , -cos(this.angle) * this.bulletSpeed, 20, 20));
+        }
+        for(let i = this.bullets.length - 1; i > 0 ; i--)
+        {
+            this.bullets[i].drawSprite();
+            this.bullets[i].move();
+
+            if(this.bullets[i].edgeCollision())
+            {
+                this.bullets.splice(i, 1);
+                console.log("delete");
+            }
+        }
+    }
+}
