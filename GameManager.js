@@ -1,6 +1,6 @@
 class GameManager
 {
-    constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 10)
+    constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 1)
     {
         this.highscore = 0;
         this.score = 0;
@@ -10,9 +10,6 @@ class GameManager
         this.attackSpeed = 1;
         this.penetration = 1;
         this.capacity = 1;
-
-        this.enemyMultiplier = enemyMultiplier;
-        this.enemiesFirstRound = enemiesFirstRound;
 
         this.font = font;
 
@@ -30,6 +27,21 @@ class GameManager
         }
 
         this.loadHighscore();
+
+        // Things related to initializing gameobjects
+
+        // Sky
+        this.sky = new Sky();
+
+        // Player
+        this.player = new Player(width * 0.9, height / 2, 0, 0, 1, 1, 0.1, 0.01);
+
+        // Enemies
+        this.enemies = [];
+        this.enemyMultiplier = enemyMultiplier;
+        this.enemiesFirstRound = enemiesFirstRound;
+        this.currentEnemyType = this.getEnemiesType(this.level);
+        this.enemiesToSpawn = this.getEnemiesToSpawn(this.level);
     }
 
     // Update highscore to score if highscore > score
@@ -59,6 +71,35 @@ class GameManager
     // Main game update loop (Use this if game is driven by game manager)
     updateGame()
     {
+        this.sky.show();
+
+        this.player.playerDraw();
+        this.player.playerMovement();
+
+        // Update enemies
+        for (var i = 0; i < this.enemies.length; i = i + 1)
+        {
+            this.enemies[i].move();
+            this.enemies[i].drawSprite();
+
+            // Delete enemy if out of bounds
+            if (this.enemies[i].deleteEnemyEntity() > width)
+            {
+                this.enemies.splice(i, 1);
+                i = i - 1;
+            }
+        }
+        // Spawn new enemies
+        if (this.enemiesToSpawn > 0)
+        {
+            if (Math.floor(random(0, 100)) == 0)
+                {
+                    this.enemies.push(new Enemy(this.currentEnemyType));
+                    this.enemiesToSpawn = this.enemiesToSpawn - 1;
+                }
+        }
+
+
         this.displayInfo();
     }
 
