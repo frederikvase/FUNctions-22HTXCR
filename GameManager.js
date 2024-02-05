@@ -28,7 +28,7 @@ class GameManager
                 localStorage.highscore = JSON.stringify();
             }
         }
-        
+
         this.loadHighscore();
     }
 
@@ -56,8 +56,8 @@ class GameManager
         this.highscore = JSON.parse(localStorage.highscore);
     }
 
-    // Show info on screen
-    display(x = 0, y = 0)
+    // Show score on screen
+    displayScore(x = 0, y = 0)
     {
         push();
 
@@ -76,8 +76,6 @@ class GameManager
         // Score
         this.scoreBox.setText(["Highscore: " + this.highscore, "Score: " + this.score]);
         this.scoreBox.display(0, 0);
-
-        // Level up!?
 
         pop();
     }
