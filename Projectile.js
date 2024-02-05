@@ -24,11 +24,11 @@ class Projectile extends Entity
         return dist(this.x, this.y, other.x, other.y);
     }
 
-    homing(other)
+    homing(other, myHomingSpeed=3)
     {
         //first find the angle between this and other
         let angle = atan2(other.y - this.y, other.x - this.x);
-        let homingSpeed = 3;
+        let homingSpeed = myHomingSpeed;
 
         //sets the speed to match the direction of other akumala akumala
         this.xSpeed = homingSpeed * cos(angle);
