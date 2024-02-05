@@ -19,6 +19,17 @@ class GameManager
         this.scoreBox = new TextBox(
             ["Highscore: " + this.highscore, "Score" + this.score], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
         );
+
+        // Initialize undefined localStorage data
+        if (typeof (Storage) !== "undefined") 
+        {
+            if (!localStorage.highscore)
+            {
+                localStorage.highscore = JSON.stringify();
+            }
+        }
+        
+        this.loadHighscore();
     }
 
     // Update highscore to score if highscore > score
@@ -27,7 +38,22 @@ class GameManager
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
+
+            // Save highsore
+            this.saveHighscore();
         }
+    }
+
+    // Save current highscore to localstorage
+    saveHighscore()
+    {
+        localStorage.highscore = JSON.stringify(this.highscore);
+    }
+
+    // Load current highscore from localstorage
+    loadHighscore()
+    {
+        this.highscore = JSON.parse(localStorage.highscore);
     }
 
     // Show info on screen
