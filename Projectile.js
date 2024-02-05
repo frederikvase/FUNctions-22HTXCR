@@ -2,6 +2,7 @@ class Projectile extends Entity
 {
     constructor(imageFileName, x, x, xSpeed, ySpeed, xScale, yScale)
     {
+        //steal entity attributes >:)
         super(imageFileName, x, y, xSpeed, ySpeed, xScale, yScale);
     }
 

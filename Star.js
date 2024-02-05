@@ -2,17 +2,13 @@ class Star extends Entity
   {
     constructor()
     {
-        let filename = "somethingsomething.png";
-        super(filename, random(-100,width+100), random(-100,height+100), random(-1,1), random(-1,1));
-
-        this.x=random(-100,width+100);
-        this.y=random(-100,height+100);
-        this.xSpeed=random(-1,1);
-        this.ySpeed=random(-1,1);
+        let filename = "bigstar.png";
+        super(filename, random(0,width), random(0,height), random(-1,1), random(-1,1), 30, 30);
 
         this.r=random(3,7);
         this.size=random(0,1);
         
+        this.farve =[random(220,255),random(200,255),random(100,130)];
 
         this.glitterSpeed=random(-3,3);
         
@@ -37,14 +33,13 @@ class Star extends Entity
     {
       
       push();
-
-
       noStroke();
       fill(255,this.o);
       circle(this.x,this.y,this.r/2);
       fill(245, 229, 127,this.o);
       circle(this.x,this.y,this.r);
       pop();
+      
     }
 
     special()
@@ -63,25 +58,32 @@ class Star extends Entity
     
     jitter()
     {
+     // tint(this.farve[0],this.farve[1],this.farve[2]);
+      tint(0,200,0);
+
       this.o=this.o+this.glitterSpeed;
       if(this.o>70 || this.o<0)
       {
       this.glitterSpeed=this.glitterSpeed*-1;
       }
 
-            this.xSpeed=random(-0.15,0.15);
+      this.xSpeed=random(-0.15,0.15);
       this.ySpeed=random(-0.15,0.15);
       
       this.x=this.x+this.xSpeed;
             this.y=this.y+this.ySpeed;
+
+
     }
     updateShootingStar(){
-  
+      // moves the shooiting star
       this.currentX = lerp(this.currentX, this.endX, 0.01);
       this.currentY = lerp(this.currentY, this.endY, 0.02);
   
-      // Nulstil stjerneskudet, når det når slutpunktet
+      // Finds 95% of the distance between the two points in wich the shooting star travels
       const afstand = dist(this.currentX, this.currentY, this.startX, this.startY);
+
+      // Starts the shooting star again when it reaches 95% of the distance
       if (afstand > this.maxDistance * 0.95) {
         this.startX = random(0, 400);
         this.startY = random(0, 400);
