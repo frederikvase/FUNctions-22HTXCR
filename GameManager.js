@@ -56,28 +56,19 @@ class GameManager
         this.highscore = JSON.parse(localStorage.highscore);
     }
 
+    // Main game update loop (Use this if game is driven by game manager)
+    updateGame()
+    {
+        this.displayScore();
+
+    }
+
     // Show score on screen
     displayScore(x = 0, y = 0)
-    {
-        push();
-
-        // Style
-        textAlign(LEFT, TOP)
-        fill(0, 255);
-
-        // Bounding box for score text
-        // Calculate box size from text width and text ascent
-        
-        if (this.font != undefined) // Set font if a non default font is defined
-        {
-            textFont(this.font);
-        }
-        
+    {        
         // Score
         this.scoreBox.setText(["Highscore: " + this.highscore, "Score: " + this.score]);
         this.scoreBox.display(0, 0);
-
-        pop();
     }
 
     // Add amount to score
