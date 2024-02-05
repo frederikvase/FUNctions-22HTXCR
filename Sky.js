@@ -3,11 +3,15 @@ class Sky
     constructor()
     {
         this.stars = [];
+        this.shootingStars=[];
+
+        for (let i = 0; i<1; i=i+1)
+        {
+         this.shootingStars[i]= new Star();
+        }
 
 
-
-
-        for (let i = 0; i<50; i=i+1)
+        for (let i = 0; i<1; i=i+1)
         {
          this.stars[i]= new Star();
         }
@@ -16,13 +20,19 @@ class Sky
     
     show()
     {
-
       for (let i = 0; i<this.stars.length; i=i+1)
       {
         this.stars[i].drawSprite();
         this.stars[i].move();
-        this.stars[i].jitter();
+        this.stars[i].jitter();       
+
       }
+
+for(let i = 0; i<this.shootingStars.length; i=i+1)
+    {          this.shootingStars[i].drawShootingStar();
+      this.shootingStars[i].updateShootingStar();
+    
+    }
 
       
     }
