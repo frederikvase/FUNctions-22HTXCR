@@ -7,7 +7,7 @@ class Sky
 
 
 
-        for (let i = 0; i<100; i=i+1)
+        for (let i = 0; i<50; i=i+1)
         {
          this.stars[i]= new Star();
         }

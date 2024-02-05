@@ -3,10 +3,9 @@ class Star extends Entity
     constructor()
     {
         let star = "smallstar.png";  
-        let starSize = random(5,15); 
+        let starSize = random(1,2); 
         
         super(star, random(0,width), random(0,height), random(-1,1), random(-1,1), starSize, starSize);
-        this.r=random(5,15);
      
         this.size=random(0,1);
         
