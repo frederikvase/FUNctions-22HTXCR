@@ -16,8 +16,8 @@ class GameManager
 
         this.font = font;
 
-        this.scoreBox = new TextBox(
-            ["Highscore: " + this.highscore, "Score" + this.score], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
+        this.infoBox = new TextBox(
+            ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
         );
 
         // Initialize undefined localStorage data
@@ -59,15 +59,15 @@ class GameManager
     // Main game update loop (Use this if game is driven by game manager)
     updateGame()
     {
-        this.displayScore();
+        this.displayInfo();
     }
 
-    // Show score on screen
-    displayScore(x = 0, y = 0)
+    // Show score and level on screen
+    displayInfo(x = 0, y = 0)
     {        
-        // Score
-        this.scoreBox.setText(["Highscore: " + this.highscore, "Score: " + this.score]);
-        this.scoreBox.display(0, 0);
+        // Update and display infobox
+        this.infoBox.setText(["Highscore: " + this.highscore, "Score: " + this.score, "Level: " + this.level]);
+        this.infoBox.display(0, 0);
     }
 
     // Add amount to score
@@ -80,6 +80,8 @@ class GameManager
     levelUp()
     {
         this.level = this.level + 1;
+        this.currentEnemyType = this.getEnemiesType(level);
+        this.enemiesToSpawn = this.getEnemiesToSpawn(level);
     }
 
     // Get amount of enemies to spawn in this level
@@ -89,12 +91,12 @@ class GameManager
         return this.enemyMultiplier * Math.floor(level / 4) + this.enemiesFirstRound;
     }
     
-
     getEnemiesType(level)
     {   
         // must start on level 0 because mirsad want 1 enemy on level 1 
         return (level % 4);
     }
+
     // Use this function to track the increase in bullet damage from power-ups
     damageIncrease()
     {
