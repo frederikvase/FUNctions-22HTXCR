@@ -20,7 +20,7 @@ class Explosion
     }
 
     // Private
-    // Makes an array of the particals in the explosion
+    // Makes an array of the particles in the explosion
     makeParticles(amountToMake) 
     {
         for (let i = 0; i < amountToMake; i = i + 1)
@@ -30,15 +30,15 @@ class Explosion
     }
 
     // Public
-    // Run in draw to make the explosion move
+    // Run in draw to make the explosion move or use runExplosions
     explode() 
     { 
         for (let i = 0; i < this.particlesArr.length; i = i + 1)
         {
-            this.particlesArr[i].drawSprite();  // Draws the explosion particals
-            this.particlesArr[i].move();        // Moves the explosion particals
+            this.particlesArr[i].drawSprite();  // Draws the explosion particles
+            this.particlesArr[i].move();        // Moves the explosion particles
 
-            // If the partical has gotten a size below or equal to zero remove the partical
+            // If the partical has gotten a size below or equal to zero remove the particle
             if (this.particlesArr[i].disappear(this.disappearSpeed))
             {
                 this.particlesArr.splice(i,1);
@@ -99,6 +99,21 @@ class Particle extends Entity
         else
         {
             return true; // The particle has disappeared
+        }
+    }
+}
+
+// Public function out of class
+// Calls the mathods of the class of explosions and deletes them when done
+function runExplosions(arrayOfExplosions)
+{
+    for (let i = 0; i < arrayOfExplosions.length; i = i +1) 
+    {
+        arrayOfExplosions[i].explode();
+        if (arrayOfExplosions[i].explosionIsDone())
+        {
+            arrayOfExplosions.splice(i,1);
+            i = i - 1;
         }
     }
 }
