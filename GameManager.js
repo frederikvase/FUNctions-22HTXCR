@@ -15,6 +15,10 @@ class GameManager
         this.enemiesFirstRound = enemiesFirstRound;
 
         this.font = font;
+
+        this.scoreBox = new TextBox(
+            ["Highscore: " + this.highscore, "Score" + this.score], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
+        );
     }
 
     // Update highscore to score if highscore > score
@@ -44,8 +48,8 @@ class GameManager
         }
         
         // Score
-        text("Highscore: " + this.highscore, x, y);
-        text("Score: " + this.score, x, y + textAscent());
+        this.scoreBox.setText(["Highscore: " + this.highscore, "Score: " + this.score]);
+        this.scoreBox.display(0, 0);
 
         // Level up!?
 
