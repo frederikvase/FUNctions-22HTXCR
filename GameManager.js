@@ -23,7 +23,7 @@ class GameManager
         // Initialize undefined localStorage data
         if (typeof (Storage) !== "undefined") 
         {
-            if (!localStorage.highscore)
+            if (!localStorage.highscore || localStorage.highscore == "undefined")
             {
                 localStorage.highscore = JSON.stringify(0);
             }
@@ -60,7 +60,6 @@ class GameManager
     updateGame()
     {
         this.displayScore();
-
     }
 
     // Show score on screen
