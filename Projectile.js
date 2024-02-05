@@ -1,4 +1,4 @@
-class Projectile extends Entity_
+class Projectile extends Entity
 {
     constructor(imageFileName_, x_, y_, xSpeed_, y_Speed_, x_Scale_=1, y_Scale_=1)
     {

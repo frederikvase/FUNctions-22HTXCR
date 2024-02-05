@@ -40,6 +40,9 @@ class EnemyEntities extends entityClass
             case "root":
                 this.rootEntity();
                 break;
+            case "piecewise":
+                this.piecewiseEntity();
+                break;
 
         }
     }
@@ -60,6 +63,7 @@ class EnemyEntities extends entityClass
         return false;
     }
 
+    //Returns the hostile enemy's x-koordinate and can then be checked deleted if out of bounds (width)
     deleteEnemyEntity()
     {
         return this.x;
@@ -70,6 +74,15 @@ class EnemyEntities extends entityClass
     {
         imageMode(CENTER);
         image(this.enemySprite, this.x, height - this.y, this.diameter, this.diameter);
+    }
+
+    //If invisibility is confirmed, then turn down visibility of enemy
+    invisibilityPeriod(invisibility)
+    {
+        if(invisibility == true)
+        {
+
+        }
     }
 
     //List of functions

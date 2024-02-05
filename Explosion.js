@@ -1,8 +1,8 @@
 class Explosion 
 {
-    // This class takes an x,y coordinate for where the explosion is to happen, 
-    // the amount of particles, the particle movement speed, the duration of the explosion
-    // and start min- and maxSize of the particles
+    // This class takes an x, y coordinate for where the explosion is to happen, 
+    // the amount of particles, the particle movement speed, the dissapering speed of the particles,
+    // start min- and maxSize of the particles
     constructor (x, y, amountOfParticle, particleSpeed, disappearSpeed, sizeParticleMin, sizeParticleMax) 
     { 
         this.x = x;
@@ -19,6 +19,8 @@ class Explosion
         this.makeParticles(amountOfParticle);
     }
 
+    // Private
+    // Makes an array of the particles in the explosion
     makeParticles(amountToMake) 
     {
         for (let i = 0; i < amountToMake; i = i + 1)
@@ -27,14 +29,16 @@ class Explosion
         }
     }
 
-    // Run to make the explosion move
+    // Public
+    // Run in draw to make the explosion move or use runExplosions
     explode() 
     { 
         for (let i = 0; i < this.particlesArr.length; i = i + 1)
         {
-            this.particlesArr[i].drawSprite();
-            this.particlesArr[i].move();
+            this.particlesArr[i].drawSprite();  // Draws the explosion particles
+            this.particlesArr[i].move();        // Moves the explosion particles
 
+            // If the partical has gotten a size below or equal to zero remove the particle
             if (this.particlesArr[i].disappear(this.disappearSpeed))
             {
                 this.particlesArr.splice(i,1);
@@ -43,7 +47,8 @@ class Explosion
         }
     }
 
-    // Returns wheter the explosion is done
+    // Public
+    // Returns whether the explosion is done, so that it can be removed
     explosionIsDone() 
     {
         if (this.particlesArr.length == 0)
@@ -60,7 +65,7 @@ class Explosion
 // Private
 class Particle extends Entity 
 {
-    // This class takes an x pos, y pos, size and speed
+    // This class takes an x pos, y pos, size minium, size maximum and speed of the particle
     constructor (x, y, sizeMin, sizeMax, speed) 
     {
         let angle = random(0,360);
@@ -70,28 +75,45 @@ class Particle extends Entity
 
         let size = random(sizeMin, sizeMax)
 
-        let xInput = x - size;
-        let yInput = y - size;
+        console.log(size);
+        let xInput = x;
 
-        super("EksplosionGit\\FUNctions-22HTXCR\\assets\\whitestar.png", xInput, yInput, xSpeed, ySpeed, size, size)
+        super("smallstar.png", x, y, xSpeed, ySpeed, size, size) // The arguments extended from Entity class
 
         this.size = [size, size];
+
+        this.setOrigo((11 * this.size[0]) / 2, (11 * this.size[1]) / 2);
     }
 
     // Makes the particle smaller
     disappear(amountToScale) 
     {
         if (this.size[0] > 0 && this.size[1] > 0)
-        {
+         {
             this.size = [this.size[0] + amountToScale, this.size[1] + amountToScale];
 
             this.setScale(this.size[0], this.size[1]);
             
-            return false;
+            return false; // The particle hasn't disappeared
         } 
         else
         {
-            return true;
+            return true; // The particle has disappeared
+        }
+    }
+}
+
+// Public function out of class
+// Calls the mathods of the class of explosions and deletes them when done
+function runExplosions(arrayOfExplosions)
+{
+    for (let i = 0; i < arrayOfExplosions.length; i = i +1) 
+    {
+        arrayOfExplosions[i].explode();
+        if (arrayOfExplosions[i].explosionIsDone())
+        {
+            arrayOfExplosions.splice(i,1);
+            i = i - 1;
         }
     }
 }
