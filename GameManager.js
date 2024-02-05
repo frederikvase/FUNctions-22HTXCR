@@ -67,8 +67,20 @@ class GameManager
     // Get amount of enemies to spawn in this level
     getEnemiesToSpawn()
     {
-        // Linear scaling (this should be changed to something better in the future so scaling uses more parameters than just amount of enemies)
-        return this.enemyMultiplier * this.level + this.enemiesFirstRound;
+        if(this.level<=4)
+        {
+            // Linear scaling with a bit of randomness to make the game less repetative
+            return abs(this.enemyMultiplier * this.level * 5 + random(0,7) + this.enemiesFirstRound)
+        }
+        if(this.level<=7)
+        {
+             // same as level 0 to 4 with linear scaling but with bigger scaling
+            return abs(this.enemyMultiplier * this.level * 7 + random(0,7)+ this.enemiesFirstRound)
+        }
+
+        //can be extended as needed just change the if statement for more levels incluted or make more
+
+
     }
 
     // Use this function to track the increase in bullet damage from power-ups
