@@ -1,9 +1,9 @@
 class Projectile extends Entity_
 {
-    constructor(imageFileName_, x_, y__, xSpeed_, y_Speed_, x_Scale_=1, y_Scale_=1)
+    constructor(imageFileName_, x_, y_, xSpeed_, y_Speed_, x_Scale_=1, y_Scale_=1)
     {
         //steal entity_ attributes >:)
-        super(imageFileName_, x, y_, xSpeed_, y_Speed, x_Scale_, y_Scale_);
+        super(imageFileName_, x_, y_, xSpeed_, y_Speed_, x_Scale_, y_Scale_);
     }
 
     checkCollision(other, minumumDistance)
