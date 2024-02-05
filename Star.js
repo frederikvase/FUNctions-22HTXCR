@@ -2,17 +2,19 @@ class Star extends Entity
   {
     constructor()
     {
-        let filename = "bigstar.png";
-        super(filename, random(0,width), random(0,height), random(-1,1), random(-1,1), 30, 30);
-
-        this.r=random(3,7);
+        let star = "smallstar.png";  
+        let starSize = random(5,15); 
+        
+        super(star, random(0,width), random(0,height), random(-1,1), random(-1,1), starSize, starSize);
+        this.r=random(5,15);
+     
         this.size=random(0,1);
         
-        this.farve =[random(220,255),random(200,255),random(100,130)];
+        this.farve =[random(220,240),random(220,240),random(110,130)];
 
         this.glitterSpeed=random(-3,3);
         
-        this.o=random(0,50);
+        this.o=random(50,100);
         this.weight=random(1,4);
 
         this.angle=random(0,360);
@@ -58,8 +60,8 @@ class Star extends Entity
     
     jitter()
     {
-     // tint(this.farve[0],this.farve[1],this.farve[2]);
-      tint(0,200,0);
+      tint(this.farve[0],this.farve[1],this.farve[2],this.o);
+
 
       this.o=this.o+this.glitterSpeed;
       if(this.o>70 || this.o<0)

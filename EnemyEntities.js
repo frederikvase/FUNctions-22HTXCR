@@ -1,21 +1,23 @@
 class EnemyEntities extends entityClass
 {
-    constructor(x, xSpeed, diameter)
+    constructor(x, xSpeed, diameter, enemySpriteArr)
     {
         super(x, xSpeed);
 
         this.xStart = x;
-        this.y1 = random(0, 400);
-        this.y2 = random(0, 400);
+        this.y1 = random(0, height);
+        this.y2 = random(0, height);
 
-        this.HostileEntitySpeed = xSpeed;
+        this.enemySprite = enemySpriteArr[int(random(0, enemySprite.length))];
+
+        this.enemyEntitySpeed = xSpeed;
 
         this.diameter = diameter;
     }
 
     choseFunction(functionType)
     {
-        switch(functionType) //If new function is added, add another case here that matches the type of function
+        switch(functionType) //If new function is added, add another case here
         {
             case "constant":
                 this.constantEntity();
@@ -53,13 +55,21 @@ class EnemyEntities extends entityClass
     {
         if((playerCoords[1] - this.y) / (this.playerCoords[0] - this.x) <= playerLength)
         {
-            //Lose life
+            return true;
         }
+        return false;
     }
 
+    deleteEnemyEntity()
+    {
+        return this.x;
+    }
+
+    //Draws the entity when called
     show()
     {
-        circle(this.x, height - this.y, this.diameter);
+        imageMode(CENTER);
+        image(this.enemySprite, this.x, height - this.y, this.diameter, this.diameter);
     }
 
     //List of functions
@@ -67,14 +77,17 @@ class EnemyEntities extends entityClass
     //Entity that moves with a constant function
     constantEntity()
     {
-        this.x = this.x + this.HostileEntitySpeed;
+        this.x = this.x + this.enemyEntitySpeed;
         this.y = random(0 + (this.diameter / 2), height - (this.diameter / 2));
     }
 
     //Entity that moves with a linear function
     linearEntity()
     {
-
+        this.x = this.x + this.HostileEntitySpeed;
+        this.k = (this.y2 - this.y1) / (width + (this.diameter / 2));
+        this.flytY = this.y1 - (this.k * this.xStart);
+        this.y = (this.k * this.x) + this.flytY;
     }
 
     //Entity  that moves with a quadratic function
@@ -109,6 +122,12 @@ class EnemyEntities extends entityClass
 
     //Entity that moves with a root function
     rootEntity()
+    {
+
+    }
+
+    //Entity that moves with different functions at different x-value intervals
+    piecewiseEntity()
     {
 
     }
