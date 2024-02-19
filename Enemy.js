@@ -1,18 +1,19 @@
-class EnemyEntities extends entityClass
+class Enemy extends Entity
 {
-    constructor(x, xSpeed, diameter, enemySpriteArr)
+    constructor(enemyType)
     {
-        super(x, xSpeed);
+        let yStart = random(0, height); 
+        let yFinish = random(0, height); 
 
-        this.xStart = x;
-        this.y1 = random(0, height);
-        this.y2 = random(0, height);
+        super("enemy1.png", -20, yStart, 3, 0, 1, 1);
 
-        this.enemySprite = enemySpriteArr[int(random(0, enemySprite.length))];
+        this.xStart = this.x;
+        this.y1 = yStart;
+        this.y2 = yFinish;
 
-        this.enemyEntitySpeed = xSpeed;
+        // this.enemyEntitySpeed = xSpeed;
 
-        this.diameter = diameter;
+        // this.diameter = diameter;
     }
 
     choseFunction(functionType)
@@ -43,6 +44,9 @@ class EnemyEntities extends entityClass
             case "piecewise":
                 this.piecewiseEntity();
                 break;
+            default:
+                console.log("Invalid type");
+                break;
 
         }
     }
@@ -69,13 +73,6 @@ class EnemyEntities extends entityClass
         return this.x;
     }
 
-    //Draws the entity when called
-    show()
-    {
-        imageMode(CENTER);
-        image(this.enemySprite, this.x, height - this.y, this.diameter, this.diameter);
-    }
-
     //If invisibility is confirmed, then turn down visibility of enemy
     invisibilityPeriod(invisibility)
     {
@@ -90,20 +87,20 @@ class EnemyEntities extends entityClass
     //Entity that moves with a constant function
     constantEntity()
     {
-        this.x = this.x + this.enemyEntitySpeed;
-        this.y = random(0 + (this.diameter / 2), height - (this.diameter / 2));
+        this.x = this.x + this.xSpeed;
+        this.y = this.y1;
     }
 
     //Entity that moves with a linear function
     linearEntity()
     {
-        this.x = this.x + this.HostileEntitySpeed;
-        this.k = (this.y2 - this.y1) / (width + (this.diameter / 2));
+        this.x = this.x + this.xSpeed;
+        this.k = (this.y2 - this.y1) / (width + (this.sprite.height * this.yScale) / 2);
         this.flytY = this.y1 - (this.k * this.xStart);
         this.y = (this.k * this.x) + this.flytY;
     }
 
-    //Entity  that moves with a quadratic function
+    //Entity that moves with a quadratic function
     quadraticEntity()
     {
 
