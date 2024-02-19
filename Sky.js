@@ -21,9 +21,11 @@ class Sky
     show()
     {
       for (let i = 0; i<this.stars.length; i=i+1)
-      {
+      {  
+        push();  
+        this.stars[i].jitter();  
         this.stars[i].drawSprite();
-        this.stars[i].jitter();       
+        pop();
 
       }
 
