@@ -54,8 +54,6 @@ class Player extends Entity
 
     drawBullets()
     {
-        console.log(this.bullets.length);
-
         for(let i = 0; i < this.bullets.length ; i++)
         {
             this.bullets[i].move();
@@ -64,7 +62,6 @@ class Player extends Entity
             if(this.bullets[i].edgeCollision())
             {
                 this.bullets.splice(i, 1);
-                console.log("delete");
             }
         }
     }
