@@ -2,30 +2,16 @@ class Star extends Entity
   {
     constructor(filename)
     {
-<<<<<<< HEAD
         super(filename, random(0,width), random(0,height), random(-1,1), random(-1,1), 10, 10);
 
         this.radius=random(3,7);
-=======
-        let star = "smallstar.png"; 
-        let starSize = random(1,2); 
-        
-        super(star, random(0,width), random(0,height), random(-1,1), random(-1,1), starSize, starSize);
-     
-        this.r = random(2, 8);
->>>>>>> 0786af2e20617050d3414a2feb5e61ae6290c55b
         this.size=random(0,1);
         
         this.farve =[random(220,240),random(220,240),random(110,130)];
 
         this.glitterSpeed=random(-3,3);
         
-<<<<<<< HEAD
         this.opacity=random(0,50);
-=======
-        this.o=random(50,100);
-        this.alfa=0;
->>>>>>> 0786af2e20617050d3414a2feb5e61ae6290c55b
         this.weight=random(1,4);
 
         // variables for shoothing star
@@ -43,12 +29,7 @@ class Star extends Entity
     
     jitter()
     {
-<<<<<<< HEAD
      tint(this.farve[0],this.farve[1],this.farve[2]);
-=======
-      tint(this.farve[0],this.farve[1],this.farve[2],this.o);
-
->>>>>>> 0786af2e20617050d3414a2feb5e61ae6290c55b
 
       this.opacity=this.opacity+this.glitterSpeed;
       if(this.opacity>70 || this.opacity<0)
@@ -92,11 +73,7 @@ class Star extends Entity
         this.endX = random(0, width);
         this.endY = random(0, height);
         this.maxDistance = dist(this.startX, this.startY, this.endX, this.endY);
-<<<<<<< HEAD
         this.radius = random(1, 4);
-=======
-        this.r = random(2, 8);
->>>>>>> 0786af2e20617050d3414a2feb5e61ae6290c55b
       }
       
 
@@ -107,12 +84,9 @@ class Star extends Entity
 
     }
     
-<<<<<<< HEAD
       drawShootingStar(){
       fill(245, 229, 127, 100);
       noStroke();
       ellipse(this.currentX, this.currentY, this.radius, this.radius);
     }
-=======
->>>>>>> 0786af2e20617050d3414a2feb5e61ae6290c55b
   }
