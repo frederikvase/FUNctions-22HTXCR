@@ -10,13 +10,9 @@ class Enemy extends Entity
         this.xStart = this.x;
         this.y1 = yStart;
         this.y2 = yFinish;
-
-        // this.enemyEntitySpeed = xSpeed;
-
-        // this.diameter = diameter;
     }
 
-    choseFunction(functionType)
+    chooseFunction(functionType)
     {
         switch(functionType) //If new function is added, add another case here
         {
@@ -52,7 +48,7 @@ class Enemy extends Entity
     }
 
     //Returns the x- and y-coordinates of the hostile entity
-    entityCoordinates()
+    enemyCoordinates()
     {
         return [this.x, this.y];
     }

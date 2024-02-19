@@ -1,6 +1,6 @@
 class Player extends Entity
 {
-    constructor(xPosition, yPosition, xSpeed, ySpeed, xScale, yScale, rotationSpeed = 1, InertiaAmmount = 0.1)
+    constructor(xPosition = width / 2, yPosition =  height / 2, xSpeed = 2, ySpeed = 2, xScale = 1.7, yScale = 1.7, rotationSpeed = 0.001, InertiaAmmount = 0.008)
     {
         super("player90.png", xPosition, yPosition, xSpeed, ySpeed, xScale, yScale);
         this.rotationSpeed = rotationSpeed;
@@ -26,7 +26,7 @@ class Player extends Entity
         this.icon = loadImage('assets/player.png');
 
         this.bullets = [];
-        this.bulletSpeed = 20
+        this.bulletSpeed = 20;
     }
     
     
@@ -36,22 +36,24 @@ class Player extends Entity
         push();
         translate(this.x, this.y);
         rotate(this.angle += this.rotationIntertia);
-        image(this.icon, this.xScale - 150, this.yScale - 150, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
+        image(this.icon, this.xScale - 20, this.yScale - 20, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
 
         // ui
 
         // inertia indicator
-        noStroke();
-        fill(20, 20, 200, 50);
-        rect(-80, -60, 40, 40);
+        
+        //noStroke();
+        //fill(20, 20, 200, 50);
+        //rect(-80, -60, 40, 40);
     
-        stroke(0);
-        line(-60, -60, -60, -20);
-        line(-80, -40, -40, -40);
-        fill(200);
-        circle(-60 + this.rotationIntertia * 60, -40 - this.positionIntertia * 40, 5);
-        translate(0, 0);
+        //stroke(0);
+        //line(-60, -60, -60, -20);
+        //line(-80, -40, -40, -40);
+        //fill(200);
+        //circle(-60 + this.rotationIntertia * 60, -40 - this.positionIntertia * 40, 5);
+        //translate(0, 0);
         pop();
+        
     }
 
     playerMovement()
@@ -123,7 +125,7 @@ class Player extends Entity
         }
     }   
 
-    /*handleInput()
+    handleInput()
     {
         let spriteSizeX = this.sprite.width*this.xScale;
         let spriteSizeY = this.sprite.width*this.yScale;
@@ -149,7 +151,7 @@ class Player extends Entity
 
         this.setSpeedX(0);
     }
-    */
+    
     inputManager()
     {
         //A
@@ -201,10 +203,10 @@ class Player extends Entity
 
     shoot()
     {
-        console.log(this.bullets.length)
-        if(keyIsDown(32) && frameCount%10    == 0)
+        //console.log(this.bullets.length)
+        if(keyIsDown(32) /*&& frameAmmount % 5 == 0*/)
         {
-            this.bullets.push(new Projectile("bigbullet.png", this.x, this.y, sin(this.angle) * this.bulletSpeed , -cos(this.angle) * this.bulletSpeed, 20, 20));
+            this.bullets.push(new Projectile("bigbullet.png", this.x, this.y, sin(this.angle) * this.bulletSpeed , -cos(this.angle) * this.bulletSpeed, 2, 2));
         }
         for(let i = this.bullets.length - 1; i > 0 ; i--)
         {
@@ -214,7 +216,6 @@ class Player extends Entity
             if(this.bullets[i].edgeCollision())
             {
                 this.bullets.splice(i, 1);
-                console.log("delete");
             }
         }
     }

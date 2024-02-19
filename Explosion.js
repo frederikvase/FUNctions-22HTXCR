@@ -1,3 +1,18 @@
+// Public function out of class
+// Calls the mathods of the class of explosions and deletes them when done
+function runExplosions(arrayOfExplosions)
+{
+    for (let i = 0; i < arrayOfExplosions.length; i = i +1) 
+    {
+        arrayOfExplosions[i].explode();
+        if (arrayOfExplosions[i].explosionIsDone())
+        {
+            arrayOfExplosions.splice(i,1);
+            i = i - 1;
+        }
+    }
+}
+
 class Explosion 
 {
     // This class takes an x, y coordinate for where the explosion is to happen, 
@@ -12,7 +27,7 @@ class Explosion
         this.sizeParticleMin = sizeParticleMin;
         this.sizeParticleMax = sizeParticleMax;
 
-        this.disappearSpeed = -disappearSpeed;
+        this.disappearSpeed = disappearSpeed;
 
         this.particlesArr = [];
 
@@ -75,45 +90,29 @@ class Particle extends Entity
 
         let size = random(sizeMin, sizeMax)
 
-        console.log(size);
         let xInput = x;
 
         super("smallstar.png", x, y, xSpeed, ySpeed, size, size) // The arguments extended from Entity class
 
-        this.size = [size, size];
+        this.size = size;
 
-        this.setOrigo((11 * this.size[0]) / 2, (11 * this.size[1]) / 2);
+        this.setOrigo((11 * this.size) / 2, (11 * this.size) / 2);
     }
 
     // Makes the particle smaller
     disappear(amountToScale) 
     {
-        if (this.size[0] > 0 && this.size[1] > 0)
+        if (this.size > 0)
          {
-            this.size = [this.size[0] + amountToScale, this.size[1] + amountToScale];
+            this.size = this.size - amountToScale;
 
-            this.setScale(this.size[0], this.size[1]);
+            this.setScale(this.size, this.size);
             
             return false; // The particle hasn't disappeared
         } 
         else
         {
             return true; // The particle has disappeared
-        }
-    }
-}
-
-// Public function out of class
-// Calls the mathods of the class of explosions and deletes them when done
-function runExplosions(arrayOfExplosions)
-{
-    for (let i = 0; i < arrayOfExplosions.length; i = i +1) 
-    {
-        arrayOfExplosions[i].explode();
-        if (arrayOfExplosions[i].explosionIsDone())
-        {
-            arrayOfExplosions.splice(i,1);
-            i = i - 1;
         }
     }
 }
