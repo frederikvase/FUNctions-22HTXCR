@@ -10,13 +10,9 @@ class Enemy extends Entity
         this.xStart = this.x;
         this.y1 = yStart;
         this.y2 = yFinish;
-
-        // this.enemyEntitySpeed = xSpeed;
-
-        // this.diameter = diameter;
     }
 
-    choseFunction(functionType)
+    chooseFunction(functionType)
     {
         switch(functionType) //If new function is added, add another case here
         {
@@ -52,7 +48,7 @@ class Enemy extends Entity
     }
 
     //Returns the x- and y-coordinates of the hostile entity
-    entityCoordinates()
+    enemyCoordinates()
     {
         return [this.x, this.y];
     }
@@ -70,7 +66,14 @@ class Enemy extends Entity
     //Returns the hostile enemy's x-koordinate and can then be checked deleted if out of bounds (width)
     deleteEnemyEntity()
     {
-        return this.x;
+        if(this.x >= width + (this.sprite.width / 2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     //If invisibility is confirmed, then turn down visibility of enemy
