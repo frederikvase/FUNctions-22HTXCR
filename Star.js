@@ -36,7 +36,6 @@ class Star extends Entity
     
     jitter()
     {
-      push();
       tint(this.color[0],this.color[1],this.color[2],this.opacity);
 
 
@@ -51,7 +50,6 @@ class Star extends Entity
       
       this.x=this.x+this.xSpeed;
             this.y=this.y+this.ySpeed;
-pop();
 
     }
     shootingStar(){
