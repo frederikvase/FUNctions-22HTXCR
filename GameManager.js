@@ -1,6 +1,6 @@
 class GameManager
 {
-    constructor(enemyMultiplier = 1.5, enemiesFirstRound = 10)
+    constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 1)
     {
         this.highscore = 0;
         this.score = 0;
@@ -11,9 +11,37 @@ class GameManager
         this.penetration = 1;
         this.capacity = 1;
 
+        this.font = font;
 
+        this.infoBox = new TextBox(
+            ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
+        );
+
+        // Initialize undefined localStorage data
+        if (typeof (Storage) !== "undefined") 
+        {
+            if (!localStorage.highscore || localStorage.highscore == "undefined")
+            {
+                localStorage.highscore = JSON.stringify(0);
+            }
+        }
+
+        this.loadHighscore();
+
+        // Things related to initializing gameobjects
+
+        // Sky
+        this.sky = new Sky();
+
+        // Player
+        this.player = new Player(width * 0.9, height / 2, 0, 0, 1, 1, 0.1, 0.01);
+
+        // Enemies
+        this.enemies = [];
         this.enemyMultiplier = enemyMultiplier;
         this.enemiesFirstRound = enemiesFirstRound;
+        this.currentEnemyType = this.getEnemiesType(this.level);
+        this.enemiesToSpawn = this.getEnemiesToSpawn(this.level);
     }
 
     // Update highscore to score if highscore > score
@@ -22,15 +50,65 @@ class GameManager
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
+
+            // Save highsore
+            this.saveHighscore();
         }
     }
 
-    // Show info on screen
-    display(x = 0, y = 0)
+    // Save current highscore to localstorage
+    saveHighscore()
     {
-        // Score
+        localStorage.highscore = JSON.stringify(this.highscore);
+    }
 
-        // Level up!?
+    // Load current highscore from localstorage
+    loadHighscore()
+    {
+        this.highscore = JSON.parse(localStorage.highscore);
+    }
+
+    // Main game update loop (Use this if game is driven by game manager)
+    updateGame()
+    {
+        this.sky.show();
+
+        this.player.playerDraw();
+        this.player.playerMovement();
+
+        // Update enemies
+        for (var i = 0; i < this.enemies.length; i = i + 1)
+        {
+            this.enemies[i].move();
+            this.enemies[i].drawSprite();
+
+            // Delete enemy if out of bounds
+            if (this.enemies[i].deleteEnemyEntity() > width)
+            {
+                this.enemies.splice(i, 1);
+                i = i - 1;
+            }
+        }
+        // Spawn new enemies
+        if (this.enemiesToSpawn > 0)
+        {
+            if (Math.floor(random(0, 100)) == 0)
+                {
+                    this.enemies.push(new Enemy(this.currentEnemyType));
+                    this.enemiesToSpawn = this.enemiesToSpawn - 1;
+                }
+        }
+
+
+        this.displayInfo();
+    }
+
+    // Show score and level on screen
+    displayInfo(x = 0, y = 0)
+    {        
+        // Update and display infobox
+        this.infoBox.setText(["Highscore: " + this.highscore, "Score: " + this.score, "Level: " + this.level]);
+        this.infoBox.display(0, 0);
     }
 
     // Add amount to score
@@ -43,13 +121,21 @@ class GameManager
     levelUp()
     {
         this.level = this.level + 1;
+        this.currentEnemyType = this.getEnemiesType(level);
+        this.enemiesToSpawn = this.getEnemiesToSpawn(level);
     }
 
     // Get amount of enemies to spawn in this level
-    getEnemiesToSpawn()
+    getEnemiesToSpawn(level)
     {
-        // Linear scaling (this should be changed to something better in the future so scaling uses more parameters than just amount of enemies)
-        return this.enemyMultiplier * this.level + this.enemiesFirstRound;
+        //Stair scaling (like jakes relationship scaling from adventure time) ask ulf for more info
+        return this.enemyMultiplier * Math.floor(level / 4) + this.enemiesFirstRound;
+    }
+    
+    getEnemiesType(level)
+    {   
+        // must start on level 0 because mirsad want 1 enemy on level 1 
+        return (level % 4);
     }
 
     // Use this function to track the increase in bullet damage from power-ups
