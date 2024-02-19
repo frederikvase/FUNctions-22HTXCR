@@ -70,7 +70,14 @@ class Enemy extends Entity
     //Returns the hostile enemy's x-koordinate and can then be checked deleted if out of bounds (width)
     deleteEnemyEntity()
     {
-        return this.x;
+        if(this.x >= width + (this.sprite.width / 2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     //If invisibility is confirmed, then turn down visibility of enemy
