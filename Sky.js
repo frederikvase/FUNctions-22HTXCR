@@ -11,7 +11,7 @@ class Sky
         }
 
 
-        for (let i = 0; i<1; i=i+1)
+        for (let i = 0; i<20; i=i+1)
         {
          this.stars[i]= new Star();
         }
@@ -23,14 +23,14 @@ class Sky
       for (let i = 0; i<this.stars.length; i=i+1)
       {
         this.stars[i].drawSprite();
-        this.stars[i].move();
         this.stars[i].jitter();       
 
       }
 
 for(let i = 0; i<this.shootingStars.length; i=i+1)
-    {          this.shootingStars[i].drawShootingStar();
-      this.shootingStars[i].updateShootingStar();
+    {   
+      
+      this.shootingStars[i].shootingStar();
     
     }
 
