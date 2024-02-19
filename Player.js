@@ -1,221 +1,70 @@
+// This player type only moves horizontally
+
 class Player extends Entity
 {
-    constructor(xPosition = width / 2, yPosition =  height / 2, xSpeed = 2, ySpeed = 2, xScale = 1.7, yScale = 1.7, rotationSpeed = 0.001, InertiaAmmount = 0.008)
+    constructor(maxSpeed, acc, scale, distanceToEdge, mostShotsPerSecond, bulletSpeed)
     {
-        super("player90.png", xPosition, yPosition, xSpeed, ySpeed, xScale, yScale);
-        this.rotationSpeed = rotationSpeed;
+        super("player90.png", width - scale * 30 - distanceToEdge, height / 2, 0, 0, scale, scale);
+        
+        // Player movement
+        this.maxSpeed = maxSpeed;
+        this.acc = acc;
 
-        //inertia is a value added to the rotation and position of the player
-        //it increases as the player moves and rotates
-        
-        this.speed = 5;
-        
-        //inputs
-        this.wIsPressed = false;
-        this.aIsPressed = false;
-        this.sIsPressed = false;
-        this.dIsPressed = false;
-        
-        //NICE MOVEMENT
-        this.rotationIntertia = 0;
-        this.positionIntertia = 0;
-        this.InertiaAmmount = InertiaAmmount;
-        
-        this.angle = 0;
-        this.postition = createVector(xPosition, yPosition);
-        this.icon = loadImage('assets/player.png');
-
+        // Player shooting
         this.bullets = [];
-        this.bulletSpeed = 20;
+        this.bulletSpeed = bulletSpeed;
+        this.shootTimer = 0;
+        this.mostShotsPerSecond = mostShotsPerSecond;
     }
-    
-    
-    playerDraw()
-    {
-        //this function includes drawing the ui around the player
-        push();
-        translate(this.x, this.y);
-        rotate(this.angle += this.rotationIntertia);
-        image(this.icon, this.xScale - 20, this.yScale - 20, this.sprite.width * this.xScale, this.sprite.height * this.yScale);
-
-        // ui
-
-        // inertia indicator
-        
-        //noStroke();
-        //fill(20, 20, 200, 50);
-        //rect(-80, -60, 40, 40);
-    
-        //stroke(0);
-        //line(-60, -60, -60, -20);
-        //line(-80, -40, -40, -40);
-        //fill(200);
-        //circle(-60 + this.rotationIntertia * 60, -40 - this.positionIntertia * 40, 5);
-        //translate(0, 0);
-        pop();
-        
-    }
-
-    playerMovement()
-    {
-        this.inputManager();
-        
-        let spriteSizeX = this.sprite.width*this.xScale;
-        let spriteSizeY = this.sprite.width*this.yScale;
-
-        this.x = constrain(this.x, spriteSizeX/2, width - spriteSizeX/2);
-        this.y = constrain(this.y, spriteSizeY/2, height - spriteSizeY/2);
-
-        //move forward
-        if(this.wIsPressed == true)
-        {
-            this.y = this.y - cos(this.angle) * this.speed;
-            this.x = this.x + sin(this.angle) * this.speed;
-
-            this.positionIntertia = this.positionIntertia + this.InertiaAmmount;
-        }
-
-        //move backwards
-        if(this.sIsPressed == true)
-        {
-            this.y = this.y + cos(this.angle) * this.speed / 2;
-            this.x = this.x - sin(this.angle) * this.speed / 2;
-
-            this.positionIntertia = this.positionIntertia - this.InertiaAmmount;
-        }
-
-        //clockwise "D"
-        if(this.dIsPressed == true)
-        {
-            this.rotationIntertia = this.rotationIntertia + this.InertiaAmmount;
-            this.angle = this.angle + this.rotationSpeed;
-        }
-
-        //counter clockwise "A"
-        if(this.aIsPressed == true)
-        {
-            this.rotationIntertia = this.rotationIntertia - this.InertiaAmmount;
-            this.angle = this.angle - this.rotationSpeed;
-        }
-
-
-        //intertia
-
-        //rotation
-        if(this.rotationIntertia > 0)
-        {
-            this.rotationIntertia = this.rotationIntertia - this.InertiaAmmount / 2;
-        }
-        if(this.rotationIntertia < 0)
-        {
-            this.rotationIntertia = this.rotationIntertia + this.InertiaAmmount / 2;
-        }
-
-        //positional
-        this.y = this.y - cos(this.angle) * this.positionIntertia * 2;
-        this.x = this.x + sin(this.angle) * this.positionIntertia * 2;
-
-        if(this.positionIntertia > 0)
-        {
-            this.positionIntertia = this.positionIntertia - this.InertiaAmmount / 2;
-        }
-        if(this.positionIntertia < 0)
-        {
-            this.positionIntertia = this.positionIntertia + this.InertiaAmmount / 2;
-        }
-    }   
 
     handleInput()
     {
-        let spriteSizeX = this.sprite.width*this.xScale;
-        let spriteSizeY = this.sprite.width*this.yScale;
+        let dt = 1/30;
 
-        this.x = constrain(this.x, spriteSizeX, width - spriteSizeX);
-        this.y = constrain(this.y, 0, height - spriteSizeY);
-
-        this.inputManager();
-        if (this.wIsPressed)
+        if(keyIsDown(87)) // W
         {
-            this.setSpeedY(-this.speed);
-            console.log("W is pressed");
-        } 
-        else if (this.sIsPressed)
+            if (this.ySpeed > -this.maxSpeed)
+                this.setSpeedY(this.ySpeed - this.acc * dt);
+            else
+                this.setSpeedY(-this.maxSpeed);
+        }
+        if(keyIsDown(83)) // S
         {
-            this.setSpeedY(this.speed);
-            console.log("S is pressed");
-        } 
-        else 
-        {
-            this.setSpeedY(0);
+            if (this.ySpeed < this.maxSpeed)
+                this.setSpeedY(this.ySpeed + this.acc * dt);
+            else
+                this.setSpeedY(this.maxSpeed);
         }
 
-        this.setSpeedX(0);
-    }
-    
-    inputManager()
-    {
-        //A
-        if(keyIsDown(65))
-         {
-            //console.log("a");
-            this.aIsPressed = true;
-         }
-         else
-         {
-            this.aIsPressed = false;
-         }
-
-         //S
-         if(keyIsDown(83))
-         {
-            //console.log("s");
-            this.sIsPressed = true;
-
-         }
-         else
-         {
-            this.sIsPressed = false;
-         }
-         
-         //D
-         if(keyIsDown(68))
-         {
-            //console.log("d");
-            this.dIsPressed = true;
-         }
-         else
-         {
-            this.dIsPressed = false;
-         }
-         
-         //W
-         if(keyIsDown(87))
-         {
-            //console.log("w");
-            this.wIsPressed = true;
-         }
-         else
-         {
-            this.wIsPressed = false;
-         }
+        if (this.shootTimer <= 0 && keyIsDown(32))
+        {
+            this.shoot();
+            this.shootTimer = 1 / this.mostShotsPerSecond;
+        }
+        else
+            this.shootTimer -= dt;
         
+        this.setSpeedY(this.ySpeed * 0.95);
     }
 
     shoot()
     {
-        //console.log(this.bullets.length)
-        if(keyIsDown(32) /*&& frameAmmount % 5 == 0*/)
+        this.bullets.push(new Projectile("bigbullet.png", this.x, this.y + this.yScale * 15, -this.bulletSpeed, 0, this.xScale * 0.8, this.yScale * 0.8));
+    }
+
+    drawBullets()
+    {
+        console.log(this.bullets.length);
+
+        for(let i = 0; i < this.bullets.length ; i++)
         {
-            this.bullets.push(new Projectile("bigbullet.png", this.x, this.y, sin(this.angle) * this.bulletSpeed , -cos(this.angle) * this.bulletSpeed, 2, 2));
-        }
-        for(let i = this.bullets.length - 1; i > 0 ; i--)
-        {
-            this.bullets[i].drawSprite();
             this.bullets[i].move();
+            this.bullets[i].drawSprite();
 
             if(this.bullets[i].edgeCollision())
             {
                 this.bullets.splice(i, 1);
+                console.log("delete");
             }
         }
     }
