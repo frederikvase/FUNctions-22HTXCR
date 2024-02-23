@@ -13,7 +13,7 @@ class Enemy extends Entity
         this.y2 = yFinish;
     }
 
-    chooseFunction()
+    enemyMove()
     {
         switch(this.enemyType) //If new function is added, add another case here
         {
