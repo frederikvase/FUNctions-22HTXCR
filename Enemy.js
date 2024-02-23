@@ -4,40 +4,44 @@ class Enemy extends Entity
     {
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
-        this.xStart = random(-40, -10);
+        let xStart = random(-40, -10);
 
         super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
 
+        this.enemyType = enemyType;
         this.y1 = yStart;
         this.y2 = yFinish;
     }
 
-    chooseFunction(functionType)
+    chooseFunction()
     {
-        switch(functionType) //If new function is added, add another case here
+        switch(enemyType) //If new function is added, add another case here
         {
-            case "constant":
+            case 1:
                 this.constantEntity();
                 break;
-            case "linear":
+            case 2:
                 this.linearEntity();
                 break;
-            case "quadratic":
+            case 3:
                 this.quadraticEntity();
                 break;
-            case "cubic":
+            case 4:
                 this.cubicEntity();
                 break;
-            case "exponential":
+            case 5:
                 this.exponentialEntity();
                 break;
-            case "sinus":
+            case 6:
+                this.logarithmicEntity();
+                break;
+            case 7:
                 this.sinusEntity();
                 break;
-            case "root":
+            case 8:
                 this.rootEntity();
                 break;
-            case "piecewise":
+            case 9:
                 this.piecewiseEntity();
                 break;
             default:
