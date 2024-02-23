@@ -1,14 +1,14 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, speedX = 1)
+    constructor(enemyType, xStart, speedX = 1)
     {
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
-        let xStart = random(-40, -10);
 
-        super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", xStart = - 20, yStart, speedX, 0, 1, 1);
 
         this.enemyType = enemyType;
+        this.xStart = xStart;
         this.y1 = yStart;
         this.y2 = yFinish;
     }
@@ -101,9 +101,9 @@ class Enemy extends Entity
     linearEntity()
     {
         this.x = this.x + this.xSpeed;
-        this.k = (this.y2 - this.y1) / (width + (this.sprite.height * this.yScale) / 2);
-        this.flytY = this.y1 - (this.k * this.xStart);
-        this.y = (this.k * this.x) + this.flytY;
+        this.k = (this.y2 - this.y1) / ((width + (this.sprite.height * this.yScale) / 2) - this.xStart);
+        this.startY = this.y1 - (this.k * this.xStart);
+        this.y = (this.k * this.x) + this.startY;
     }
 
     //Entity that moves with a quadratic function
