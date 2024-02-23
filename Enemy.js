@@ -15,7 +15,7 @@ class Enemy extends Entity
 
     chooseFunction()
     {
-        switch(enemyType) //If new function is added, add another case here
+        switch(this.enemyType) //If new function is added, add another case here
         {
             case 1:
                 this.constantEntity();
