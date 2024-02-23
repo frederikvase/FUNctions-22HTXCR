@@ -4,10 +4,10 @@ class Enemy extends Entity
     {
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
-
-        super("enemy" + [enemyType] +".png", -20, yStart, speedX, 0, 1, 1);
-
         this.xStart = random(-40, -10);
+
+        super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
+
         this.y1 = yStart;
         this.y2 = yFinish;
     }
@@ -43,7 +43,6 @@ class Enemy extends Entity
             default:
                 console.log("Invalid type");
                 break;
-
         }
     }
 
@@ -54,7 +53,7 @@ class Enemy extends Entity
     }
 
     //Checks for collision between hostile entity and player
-    entityPlayerCollision(playerCoords)
+    enemyPlayerCollision(playerCoords)
     {
         if((playerCoords[1] - this.y) / (this.playerCoords[0] - this.x) <= playerLength)
         {
