@@ -2,6 +2,7 @@ class GameManager
 {
     constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 1)
     {
+        HighscoreSound=loadSound(`assets/look_guys_look.mp3`);
         this.highscore = 0;
         this.score = 0;
         this.level = 0;
@@ -26,7 +27,7 @@ class GameManager
             }
         }
 
-        this.loadHighscore();
+        this.loadHighscore();   
 
         // Things related to initializing gameobjects
 
@@ -50,7 +51,7 @@ class GameManager
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
-
+            HighscoreSound.Play();
             // Save highsore
             this.saveHighscore();
         }
