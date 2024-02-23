@@ -2,17 +2,19 @@ class GameManager
 {
     constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 1)
     {
-        HighscoreSound=loadSound(`assets/look_guys_look.mp3`);
         this.highscore = 0;
         this.score = 0;
         this.level = 0;
 
-        this.damage = 1;
-        this.attackSpeed = 1;
-        this.penetration = 1;
-        this.capacity = 1;
-
         this.font = font;
+
+        this.dataLoaded = false;
+
+        // Load levels
+        this.levels = loadJSON("levels.json", () => {
+            // Levels loaded!
+            this.dataLoaded = true;
+        });
 
         this.infoBox = new TextBox(
             ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
@@ -53,7 +55,6 @@ class GameManager
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
-            HighscoreSound.Play();
             // Save highsore
             this.saveHighscore();
         }
@@ -85,7 +86,7 @@ class GameManager
         this.score = this.score + amount;
     }
 
-        /* Spawn enemies if there are more enemies to spawn in the current level else go to next level.
+    /* Spawn enemies if there are more enemies to spawn in the current level else go to next level.
     If spawnchance is 1, an enemy is spawned (defaults to 1% chance of enemy spawn by usin the random function)*/
     updateLevel(spawnEnemy = Math.floor(random(1, 100)))
     {
@@ -116,11 +117,11 @@ class GameManager
         // Update enemies
         for (var i = 0; i < this.enemies.length; i = i + 1)
         {
-            this.enemies[i].move();
+            this.enemies[i].enemyMove();
             this.enemies[i].drawSprite();
 
             // Delete enemy if out of bounds
-            if (this.enemies[i].deleteEnemyEntity() > width)
+            if (this.enemies[i].deleteEnemyEntity())
             {
                 this.enemies.splice(i, 1);
                 i = i - 1;
@@ -152,45 +153,10 @@ class GameManager
         return (level % 4);
     }
 
-    /* --------------------- Multiplier functions --------------------- */
+    /* --------------------- Info/other --------------------- */
 
-    // Use this function to track the increase in bullet damage from power-ups
-    damageIncrease()
+    isDoneLoading()
     {
-        this.damage = this.damage + 1;
-        if (this.damage > 3)
-        {
-           this.damage = 3; 
-        }
-    }
-
-    // Use this function to track the increase in attack speed from power-ups
-    attackSpeedIncrease()
-    {
-        this.attackSpeed = this.attackSpeed + 1;
-        if (this.attackSpeed > 3)
-        {
-           this.attackSpeed = 3; 
-        }
-    }
-
-    // Use this function to track the increase in how many enemies bullets can penetrate acquired from power-ups
-    bulletPenetrationIncrease()
-    {
-        this.penetration = this.penetration + 1;
-        if (this.penetration > 3)
-        {
-           this.penetration = 3; 
-        }
-    }
-
-    // Use this function to track the increase in bullet capacity between reloads from power-ups
-    ammoCapacityIncrease()
-    {
-        this.capacity = this.capacity + 1;
-        if (this.capacity > 5)
-        {
-           this.capacity = 5; 
-        }
+        return this.dataLoaded;
     }
 }
