@@ -5,9 +5,9 @@ class Enemy extends Entity
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
 
-        super("enemy1.png", -20, yStart, 3, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", -20, yStart, 3, 0, 1, 1);
 
-        this.xStart = this.x;
+        this.xStart = random(-40, -10);
         this.y1 = yStart;
         this.y2 = yFinish;
     }
