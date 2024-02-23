@@ -65,4 +65,9 @@ class Player extends Entity
             }
         }
     }
+
+    constrainPlayer()
+    {
+        this.y = constrain(this.y, 0, height - this.yScale * 35)
+    }
 }
