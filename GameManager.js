@@ -101,6 +101,17 @@ class GameManager
         // Level progression here...
     }
 
+    spawnNextWave()
+    {
+        let typesCount = this.levels[this.level].types.length;
+
+        for (let i = 0; i < this.levels[this.level].count; i++)
+        {
+            this.enemies.push(new Enemy(this.levels[this.level].types[i % typesCount], -30-i*50, this.levels[this.level].speed));
+        }
+        this.level++;
+    }
+
     // Call this when all enemies are dead
     levelUp()
     {
@@ -151,6 +162,12 @@ class GameManager
     {   
         // must start on level 0 because mirsad want 1 enemy on level 1 
         return (level % 4);
+    }
+
+    // Get the current count of enemies
+    getEnemyCount()
+    {
+        return this.enemies.length;
     }
 
     /* --------------------- Info/other --------------------- */
