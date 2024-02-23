@@ -45,6 +45,8 @@ class GameManager
         this.enemiesToSpawn = this.getEnemiesToSpawn(this.level);
     }
 
+    /* --------------------- Highscore, score and level functions --------------------- */
+
     // Update highscore to score if highscore > score
     updateHighscore()
     {
@@ -69,41 +71,6 @@ class GameManager
         this.highscore = JSON.parse(localStorage.highscore);
     }
 
-    // Main game update loop (Use this if game is driven by game manager)
-    updateGame()
-    {
-        this.sky.show();
-
-        this.player.playerDraw();
-        this.player.playerMovement();
-
-        // Update enemies
-        for (var i = 0; i < this.enemies.length; i = i + 1)
-        {
-            this.enemies[i].move();
-            this.enemies[i].drawSprite();
-
-            // Delete enemy if out of bounds
-            if (this.enemies[i].deleteEnemyEntity() > width)
-            {
-                this.enemies.splice(i, 1);
-                i = i - 1;
-            }
-        }
-        // Spawn new enemies
-        if (this.enemiesToSpawn > 0)
-        {
-            if (Math.floor(random(0, 100)) == 0)
-                {
-                    this.enemies.push(new Enemy(this.currentEnemyType));
-                    this.enemiesToSpawn = this.enemiesToSpawn - 1;
-                }
-        }
-
-
-        this.displayInfo();
-    }
-
     // Show score and level on screen
     displayInfo(x = 0, y = 0)
     {        
@@ -118,12 +85,58 @@ class GameManager
         this.score = this.score + amount;
     }
 
+        /* Spawn enemies if there are more enemies to spawn in the current level else go to next level.
+    If spawnchance is 1, an enemy is spawned (defaults to 1% chance of enemy spawn by usin the random function)*/
+    updateLevel(spawnEnemy = Math.floor(random(1, 100)))
+    {
+        if (this.enemiesToSpawn > 0)
+        {
+            if (spawnEnemy == 1)
+                {
+                    this.enemies.push(new Enemy(this.currentEnemyType));
+                    this.enemiesToSpawn = this.enemiesToSpawn - 1;
+                }
+        }
+        // Level progression here...
+    }
+
     // Call this when all enemies are dead
     levelUp()
     {
         this.level = this.level + 1;
         this.currentEnemyType = this.getEnemiesType(level);
         this.enemiesToSpawn = this.getEnemiesToSpawn(level);
+    }
+
+    /* --------------------- Entity functions --------------------- */
+
+    // Move and draw all enemies. Delete enemies if they are out of bounds
+    updateEnemies()
+    {
+        // Update enemies
+        for (var i = 0; i < this.enemies.length; i = i + 1)
+        {
+            this.enemies[i].move();
+            this.enemies[i].drawSprite();
+
+            // Delete enemy if out of bounds
+            if (this.enemies[i].deleteEnemyEntity() > width)
+            {
+                this.enemies.splice(i, 1);
+                i = i - 1;
+            }
+        }
+    }
+
+    // Check collision between enemy and player
+    checkEnemyCollision()
+    {
+
+    }
+    // Check collision between bullet and enemy
+    checkBulletCollision()
+    {
+
     }
 
     // Get amount of enemies to spawn in this level
@@ -138,6 +151,8 @@ class GameManager
         // must start on level 0 because mirsad want 1 enemy on level 1 
         return (level % 4);
     }
+
+    /* --------------------- Multiplier functions --------------------- */
 
     // Use this function to track the increase in bullet damage from power-ups
     damageIncrease()
