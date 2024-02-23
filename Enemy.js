@@ -1,6 +1,6 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, speedX)
+    constructor(enemyType, speedX = 1)
     {
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
