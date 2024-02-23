@@ -1,11 +1,11 @@
 class Enemy extends Entity
 {
-    constructor(enemyType)
+    constructor(enemyType, speedX)
     {
         let yStart = random(0, height); 
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", -20, yStart, 3, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", -20, yStart, speedX, 0, 1, 1);
 
         this.xStart = random(-40, -10);
         this.y1 = yStart;
