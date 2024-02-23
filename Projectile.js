@@ -6,11 +6,11 @@ class Projectile extends Entity
         super(imageFileName_, x_, y_, xSpeed_, y_Speed_, x_Scale_, y_Scale_);
     }
 
-    moveProj()
-    {
-        this.x = this.x + this.xSpeed;
-        this.y = this.y + this.ySpeed;
-    }
+    // moveProj()
+    // {
+    //     this.x = this.x + this.xSpeed;
+    //     this.y = this.y + this.ySpeed;
+    // }
 
     checkCollision(other, minumumDistance)
     {
