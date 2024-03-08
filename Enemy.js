@@ -1,49 +1,54 @@
 class Enemy extends Entity
 {
-    constructor(enemyType)
+    constructor(enemyType, xStart = -20, speedX = 1)
     {
         let yStart = random(0, height); 
+        let yMid = random(0, height);
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", -20, yStart, 3, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
 
-        this.xStart = random(-40, -10);
+        this.enemyType = enemyType;
+        this.xStart = xStart;
         this.y1 = yStart;
-        this.y2 = yFinish;
+        this.y2 = yMid;
+        this.y3 = yFinish;
     }
 
-    chooseFunction(functionType)
+    enemyMove()
     {
-        switch(functionType) //If new function is added, add another case here
+        switch(this.enemyType) //If new function is added, add another case here
         {
-            case "constant":
+            case 1:
                 this.constantEntity();
                 break;
-            case "linear":
+            case 2:
                 this.linearEntity();
                 break;
-            case "quadratic":
+            case 3:
                 this.quadraticEntity();
                 break;
-            case "cubic":
+            case 4:
                 this.cubicEntity();
                 break;
-            case "exponential":
+            case 5:
                 this.exponentialEntity();
                 break;
-            case "sinus":
+            case 6:
+                this.logarithmicEntity();
+                break;
+            case 7:
                 this.sinusEntity();
                 break;
-            case "root":
+            case 8:
                 this.rootEntity();
                 break;
-            case "piecewise":
+            case 9:
                 this.piecewiseEntity();
                 break;
             default:
                 console.log("Invalid type");
                 break;
-
         }
     }
 
@@ -54,7 +59,7 @@ class Enemy extends Entity
     }
 
     //Checks for collision between hostile entity and player
-    entityPlayerCollision(playerCoords)
+    enemyPlayerCollision(playerCoords)
     {
         if((playerCoords[1] - this.y) / (this.playerCoords[0] - this.x) <= playerLength)
         {
@@ -98,9 +103,9 @@ class Enemy extends Entity
     linearEntity()
     {
         this.x = this.x + this.xSpeed;
-        this.k = (this.y2 - this.y1) / (width + (this.sprite.height * this.yScale) / 2);
-        this.flytY = this.y1 - (this.k * this.xStart);
-        this.y = (this.k * this.x) + this.flytY;
+        this.k = (this.y2 - this.y1) / ((width + (this.sprite.height * this.yScale) / 2) - this.xStart);
+        this.startY = this.y1 - (((this.y2 - this.y1) / ((width + (this.sprite.height * this.yScale) / 2) - this.xStart)) * this.xStart);
+        this.y = (this.k * this.x) + this.startY;
     }
 
     //Entity that moves with a quadratic function

@@ -1,0 +1,14 @@
+[
+    {
+        "count": 5,
+        "speed": 1,
+        "types": [1, 2],
+        "lifes": 1
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [1, 2, 9],
+        "lifes": 18
+    }
+]
