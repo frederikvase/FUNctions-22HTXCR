@@ -11,9 +11,9 @@ class Enemy extends Entity
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.xl = xl; //Same as xl
-        this.xm = width / 2; //For the functions that need three points (same as xm if there is three points)
-        this.xr = width; //Same as xm (unless it one woth three points)
+        this.xl = xl; //Same as x1
+        this.xm = width / 2; //For the functions that need three points (same as x2 if there is three points)
+        this.xr = width; //Same as x2 (unless it one with three points, then it is x3)
         this.yl = yStart;
         this.ym = yMid;
         this.yr = yFinish;
@@ -180,7 +180,7 @@ class Enemy extends Entity
 
     logarithmicCoefficients()
     {
-        this.a=(this.ym-this.yl)/(log(this.xm)-log(this.xl))
+        this.a=(this.yr-this.yl)/(log(this.xr)-log(this.xl))
         this.d=this.yl-this.a*log(xl);
    
     }
