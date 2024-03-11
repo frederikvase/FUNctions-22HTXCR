@@ -123,12 +123,14 @@ class Enemy extends Entity
     //Entity that moves with a linear function
     linearEntity()
     {
-
+        this.y = this.a * this.x + this.b
+        return this.y
     }
 
     linearCoefficients()
     {
-        
+    this.a = (this.y2 - this.y1)/(this.xr - this.xl)
+    this.b = this.y1 - this.a * this.xl 
     }
 
     //Entity that moves with a quadratic function
