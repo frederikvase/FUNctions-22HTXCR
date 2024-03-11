@@ -8,6 +8,8 @@ class Enemy extends Entity
 
         super("enemy" + [enemyType] +".png", x1, yStart, speedX, 0, 1, 1);
 
+        this.xSpeed = speedX;
+
         this.enemyType = enemyType;
         this.x1 = x1;
         this.x2 = x2;
@@ -110,7 +112,7 @@ class Enemy extends Entity
     //Entity that moves with a constant function
     constantEntity()
     {
-
+        return this.y1;
     }
 
     constantCoefficients()
