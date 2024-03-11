@@ -1,19 +1,19 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, x1 = -20, x2 = width / 2, x3 = width, speedX = 1)
+    constructor(enemyType, xl = -20, speedX = 1)
     {
         let yStart = random(0, height); 
         let yMid = random(0, height);
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", x1, yStart, speedX, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", xl, yStart, speedX, 0, 1, 1);
 
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.x3 = x3;
+        this.xl = xl;
+        this.xm = width / 2;
+        this.xr = width;
         this.y1 = yStart;
         this.y2 = yMid;
         this.y3 = yFinish;
