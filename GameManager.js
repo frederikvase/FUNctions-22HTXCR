@@ -1,6 +1,6 @@
 class GameManager
 {
-    constructor(font = undefined, enemyMultiplier = 1.5, enemiesFirstRound = 1)
+    constructor(font = undefined)
     {
         this.highscore = 0;
         this.score = 0;
@@ -16,6 +16,7 @@ class GameManager
             this.dataLoaded = true;
         });
 
+        // Load infobox
         this.infoBox = new TextBox(
             ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
         );
@@ -28,23 +29,10 @@ class GameManager
                 localStorage.highscore = JSON.stringify(0);
             }
         }
-
         this.loadHighscore();   
-
-        // Things related to initializing gameobjects
-
-        // Sky
-        this.sky = new Sky();
-
-        // Player
-        this.player = new Player(width * 0.9, height / 2, 0, 0, 1, 1, 0.1, 0.01);
 
         // Enemies
         this.enemies = [];
-        this.enemyMultiplier = enemyMultiplier;
-        this.enemiesFirstRound = enemiesFirstRound;
-        this.currentEnemyType = this.getEnemiesType(this.level);
-        this.enemiesToSpawn = this.getEnemiesToSpawn(this.level);
     }
 
     /* --------------------- Highscore, score and level functions --------------------- */
@@ -77,28 +65,13 @@ class GameManager
     {        
         // Update and display infobox
         this.infoBox.setText(["Highscore: " + this.highscore, "Score: " + this.score, "Level: " + this.level]);
-        this.infoBox.display(0, 0);
+        this.infoBox.display(x, y);
     }
 
     // Add amount to score
     addToScore(amount)
     {
         this.score = this.score + amount;
-    }
-
-    /* Spawn enemies if there are more enemies to spawn in the current level else go to next level.
-    If spawnchance is 1, an enemy is spawned (defaults to 1% chance of enemy spawn by usin the random function)*/
-    updateLevel(spawnEnemy = Math.floor(random(1, 100)))
-    {
-        if (this.enemiesToSpawn > 0)
-        {
-            if (spawnEnemy == 1)
-                {
-                    this.enemies.push(new Enemy(this.currentEnemyType));
-                    this.enemiesToSpawn = this.enemiesToSpawn - 1;
-                }
-        }
-        // Level progression here...
     }
 
     spawnNextWave()
@@ -112,14 +85,6 @@ class GameManager
             this.enemies.push(new Enemy(this.levels[this.level].types[i % typesCount], -30-i*50, this.levels[this.level].speed));
         }
         this.level++;
-    }
-
-    // Call this when all enemies are dead
-    levelUp()
-    {
-        this.level = this.level + 1;
-        this.currentEnemyType = this.getEnemiesType(level);
-        this.enemiesToSpawn = this.getEnemiesToSpawn(level);
     }
 
     /* --------------------- Entity functions --------------------- */
@@ -151,19 +116,6 @@ class GameManager
     checkBulletCollision()
     {
 
-    }
-
-    // Get amount of enemies to spawn in this level
-    getEnemiesToSpawn(level)
-    {
-        //Stair scaling (like jakes relationship scaling from adventure time) ask ulf for more info
-        return this.enemyMultiplier * Math.floor(level / 4) + this.enemiesFirstRound;
-    }
-    
-    getEnemiesType(level)
-    {   
-        // must start on level 0 because mirsad want 1 enemy on level 1 
-        return (level % 4);
     }
 
     // Get the current count of enemies
