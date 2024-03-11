@@ -18,7 +18,7 @@ class GameManager
 
         // Load infobox
         this.infoBox = new TextBox(
-            ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 150
+            ["Highscore: " + this.highscore, "Score" + this.score, "Level: " + this.level], this.font, 3, 255, 255, 255, 255, 0, 0, 0, 0
         );
 
         // Initialize undefined localStorage data
@@ -85,13 +85,29 @@ class GameManager
         for (let i = 0; i < this.levels[this.level].count; i = i + 1)
         {
             this.enemies.push(
-                new Enemy(this.levels[this.level].types[i % typesCount], -30 - i * 50, this.levels[this.level].speed)
+                new Enemy(this.levels[this.level].types[i % typesCount], -30 - i * 250, this.levels[this.level].speed)
             );
         }
         this.level = this.level + 1;
     }
 
-    /* --------------------- Entity functions --------------------- */
+    handleProjectileCollisions(bullets)
+    {
+        for (let i = 0; i < bullets.length; i++)
+        {
+            for (let j = 0; j < this.enemies.length; j++)
+            {
+                if (bullets[i].checkCollision(this.enemies[j], 30))
+                {
+                    this.enemies.splice(j, 1);
+                    this.addToScore(1);
+                    break;
+                }
+            }
+        }
+    }
+
+    /* --------------------- Enemy functions --------------------- */
 
     // Move and draw all enemies. Delete enemies if they are out of bounds
     updateEnemies()

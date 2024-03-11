@@ -1,14 +1,32 @@
 [
     {
         "count": 5,
-        "speed": 1,
-        "types": [1, 2],
+        "speed": 5,
+        "types": [6],
         "lifes": 1
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [1, 2, 9],
+        "types": [6],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [6],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [6],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [6],
         "lifes": 18
     }
 ]
