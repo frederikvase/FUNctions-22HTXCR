@@ -11,9 +11,9 @@ class Enemy extends Entity
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.xl = xl;
-        this.xm = width / 2;
-        this.xr = width;
+        this.xl = xl; //Same as x1
+        this.xm = width / 2; //For the functions that need three points (same as x2 if there is three points)
+        this.xr = width; //Same as x2 (unless it one woth three points)
         this.y1 = yStart;
         this.y2 = yMid;
         this.y3 = yFinish;
