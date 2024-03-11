@@ -11,12 +11,12 @@ class Enemy extends Entity
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.xl = xl; //Same as x1
-        this.xm = width / 2; //For the functions that need three points (same as x2 if there is three points)
-        this.xr = width; //Same as x2 (unless it one woth three points)
-        this.y1 = yStart;
-        this.y2 = yMid;
-        this.y3 = yFinish;
+        this.xl = xl; //Same as xl
+        this.xm = width / 2; //For the functions that need three points (same as xm if there is three points)
+        this.xr = width; //Same as xm (unless it one woth three points)
+        this.yl = yStart;
+        this.ym = yMid;
+        this.yr = yFinish;
         this.y = 0;
 
         switch(this.enemyType)
@@ -112,7 +112,7 @@ class Enemy extends Entity
     //Entity that moves with a constant function
     constantEntity()
     {
-        return this.y1;
+        return this.yl;
     }
 
     constantCoefficients()
@@ -123,12 +123,14 @@ class Enemy extends Entity
     //Entity that moves with a linear function
     linearEntity()
     {
-
+        this.y = this.a * this.x + this.b
+        return this.y
     }
 
     linearCoefficients()
     {
-        
+        this.a = (this.y2 - this.y1)/(this.xr - this.xl)
+        this.b = this.y1 - this.a * this.xl 
     }
 
     //Entity that moves with a quadratic function
@@ -178,8 +180,8 @@ class Enemy extends Entity
 
     logarithmicCoefficients()
     {
-        this.a=(this.y2-this.y1)/(log(this.x2)-log(this.x1))
-        this.d=this.y1-this.a*log(x1);
+        this.a=(this.ym-this.yl)/(log(this.xm)-log(this.xl))
+        this.d=this.yl-this.a*log(xl);
    
     }
 
