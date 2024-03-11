@@ -172,12 +172,16 @@ class Enemy extends Entity
     //Entity that moves with a logarithmic function
     logarithmicEntity()
     {
- 
+
+      this.y = this.a * log(this.x)+this.d;
+      return(this.y);
     }
 
     logarithmicCoefficients()
     {
-        
+        this.a=(this.y2-this.y1)/(log(this.x2)-log(this.x1))
+        this.d=this.y1-this.a*log(x1);
+   
     }
 
     //Entity that moves with a sinus function/curve
