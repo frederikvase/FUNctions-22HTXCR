@@ -1,17 +1,19 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, x1 = -20, x2 = width / 2, x3 = width, speedX = 1)
+    constructor(enemyType, xl = -20, speedX = 1)
     {
         let yStart = random(0, height); 
         let yMid = random(0, height);
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", x1, yStart, speedX, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", xl, yStart, speedX, 0, 1, 1);
+
+        this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.x3 = x3;
+        this.xl = xl;
+        this.xm = width / 2;
+        this.xr = width;
         this.y1 = yStart;
         this.y2 = yMid;
         this.y3 = yFinish;
@@ -110,7 +112,7 @@ class Enemy extends Entity
     //Entity that moves with a constant function
     constantEntity()
     {
-
+        return this.y1;
     }
 
     constantCoefficients()
@@ -132,20 +134,17 @@ class Enemy extends Entity
     //Entity that moves with a quadratic function
     quadraticEntity()
     {
-        //Calculate coefficients:
-        let a = ((this.x3-this.x2)*(this.y2-this.y1)-(this.x2-this.x1)*(this.y3-this.y2))/(pow(this.x2,2)*this.x3 - pow(this.x1,2)*this.x2 - pow(this.x2,3) + pow(this.x1,2)*this.x2 - pow(this.x3,2)*x2 + pow(this.x2,3) + pow(this.x3,2)*x1 - pow(this.x2,2)*this.x1);
-  
-        let b = (this.y2 - this.y1 - (a*pow(x2,2)) + (a*(pow(this.x1,2))) ) / (this.x2-this.x1);
-      
-        let c = this.y1 - (a*this.x1) - (b*this.x1);
-        
-        return [a,b,c];
+        this.y = this.a * pow(this.x,2) + this.b * this.x + this.c;
 
     }
 
     quadraticCoefficients()
     {
+        this.a = ((this.x3-this.x2)*(this.y2-this.y1)-(this.x2-this.x1)*(this.y3-this.y2))/(pow(this.x2,2)*this.x3 - pow(this.x1,2)*this.x2 - pow(this.x2,3) + pow(this.x1,2)*this.x2 - pow(this.x3,2)*x2 + pow(this.x2,3) + pow(this.x3,2)*x1 - pow(this.x2,2)*this.x1);
+
+        this.b = (this.y2 - this.y1 - (a*pow(x2,2)) + (a*(pow(this.x1,2))) ) / (this.x2-this.x1);
         
+        this.c = this.y1 - (a*this.x1) - (b*this.x1);    
     }
 
     //Entity that moves with a cubic function
@@ -173,12 +172,16 @@ class Enemy extends Entity
     //Entity that moves with a logarithmic function
     logarithmicEntity()
     {
- 
+
+      this.y = this.a * log(this.x)+this.d;
+      return(this.y);
     }
 
     logarithmicCoefficients()
     {
-        
+        this.a=(this.y2-this.y1)/(log(this.x2)-log(this.x1))
+        this.d=this.y1-this.a*log(x1);
+   
     }
 
     //Entity that moves with a sinus function/curve
