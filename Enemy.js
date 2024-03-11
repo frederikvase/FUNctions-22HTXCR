@@ -64,7 +64,7 @@ class Enemy extends Entity
     enemyMove()
     {
        this.x = this.x + this.xSpeed; 
-       this.y = this.yCalc(xVal);
+       this.y = this.yCalc(this.x);
     }
 
     //Returns the x- and y-coordinates of the hostile entity
@@ -132,6 +132,14 @@ class Enemy extends Entity
     //Entity that moves with a quadratic function
     quadraticEntity()
     {
+        //Calculate coefficients:
+        let a = ((this.x3-this.x2)*(this.y2-this.y1)-(this.x2-this.x1)*(this.y3-this.y2))/(pow(this.x2,2)*this.x3 - pow(this.x1,2)*this.x2 - pow(this.x2,3) + pow(this.x1,2)*this.x2 - pow(this.x3,2)*x2 + pow(this.x2,3) + pow(this.x3,2)*x1 - pow(this.x2,2)*this.x1);
+  
+        let b = (this.y2 - this.y1 - (a*pow(x2,2)) + (a*(pow(this.x1,2))) ) / (this.x2-this.x1);
+      
+        let c = this.y1 - (a*this.x1) - (b*this.x1);
+        
+        return [a,b,c];
 
     }
 
