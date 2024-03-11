@@ -11,9 +11,9 @@ class Enemy extends Entity
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.xl = xl; //Same as xl
-        this.xm = width / 2; //For the functions that need three points (same as xm if there is three points)
-        this.xr = width; //Same as xm (unless it one woth three points)
+        this.xl = xl; //Same as x1
+        this.xm = width / 2; //For the functions that need three points (same as x2 if there is three points)
+        this.xr = width; //Same as x2 (unless it one with three points, then it is x3)
         this.yl = yStart;
         this.ym = yMid;
         this.yr = yFinish;
@@ -141,11 +141,11 @@ class Enemy extends Entity
 
     quadraticCoefficients()
     {
-        this.a = ((this.xr-this.xm)*(this.ym-this.yl)-(this.xm-this.xl)*(this.yr-this.ym))/(pow(this.xm,2)*this.xr - pow(this.xl,2)*this.xm - pow(this.xm,3) + pow(this.xl,2)*this.xm - pow(this.xr,2)*xm + pow(this.xm,3) + pow(this.xr,2)*xl - pow(this.xm,2)*this.xl);
+        this.a = ((this.xr-this.xm)*(this.ym-this.yl)-(this.xm-this.xl)*(this.yr-this.ym))/(pow(this.xm,2)*this.xr - pow(this.xl,2)*this.xm - pow(this.xm,3) + pow(this.xl,2)*this.xm - pow(this.xr,2)*this.xm + pow(this.xm,3) + pow(this.xr,2)*this.xl - pow(this.xm,2)*this.xl);
 
-        this.b = (this.ym - this.yl - (a*pow(xm,2)) + (a*(pow(this.xl,2))) ) / (this.xm-this.xl);
+        this.b = (this.ym - this.yl - (this.a*pow(this.xm,2)) + (this.a*(pow(this.xl,2))) ) / (this.xm-this.xl);
         
-        this.c = this.yl - (a*this.xl) - (b*this.xl);    
+        this.c = this.yl - (this.a*this.xl) - (this.b*this.xl);    
     }
 
     //Entity that moves with a cubic function
@@ -180,7 +180,7 @@ class Enemy extends Entity
 
     logarithmicCoefficients()
     {
-        this.a=(this.ym-this.yl)/(log(this.xm)-log(this.xl))
+        this.a=(this.yr-this.yl)/(log(this.xr)-log(this.xl))
         this.d=this.yl-this.a*log(xl);
    
     }
