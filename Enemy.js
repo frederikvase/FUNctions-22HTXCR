@@ -162,12 +162,13 @@ class Enemy extends Entity
     //Entity that moves with a exponential function
     exponentialEntity()
     {
-
+        return this.b*this.a**this.x
     }
 
     exponentialCoefficients()
     {
-        
+        this.a = 10**((Math.log10(this.yr/this.yl)) / (this.xr-this.xl))
+        this.b = this.yl/(this.a**this.a.xl)
     }
 
     //Entity that moves with a logarithmic function
