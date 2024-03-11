@@ -186,12 +186,15 @@ class Enemy extends Entity
     //Entity that moves with a sinus function/curve
     sinusEntity()
     {   
-
+        this.y = this.amplitude * sin(omega * this.x) + this.y1;
+        return(this.y);
     }
 
-    sinusCoefficients()
+    //The sex variable adjusts the period of the function (it's an acronym for sving efter x)
+    sinusCoefficients(sex=2)
     {
-        
+        this.omega = ((acos(((this.y3-this.y1)/(this.y2-this.y1))/2) + 2 * PI * sex)/(this.xm)); //Calculate the frequency of the sine wave
+        this.amplitude = (this.y3-this.y1)/sin(this.xr*this.omega); // Calculate the amplitude of the function
     }
 
     //Entity that moves with a root function
