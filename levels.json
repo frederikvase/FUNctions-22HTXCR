@@ -1,14 +1,38 @@
 [
     {
         "count": 5,
-        "speed": 5,
-        "types": [7],
+        "speed": 10,
+        "types": [1],
         "lifes": 1
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [7],
+        "types": [2],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [3],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [4],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [5],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [6],
         "lifes": 18
     },
     {
@@ -20,13 +44,43 @@
     {
         "count": 5,
         "speed": 10,
-        "types": [7],
+        "types": [1, 2],
+        "lifes": 1
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [2, 3],
         "lifes": 18
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [7],
+        "types": [3, 4],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [4, 5],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [5, 6],
+        "lifes": 18
+    },
+    {
+        "count": 5,
+        "speed": 10,
+        "types": [6, 7],
+        "lifes": 18
+    },
+    {
+        "count": 50,
+        "speed": 10,
+        "types": [7, 6, 5, 4, 3, 2, 1],
         "lifes": 18
     }
 ]

@@ -34,28 +34,28 @@ class Enemy extends Entity
                 this.yCalc = this.quadraticEntity;
                 break;
             case 4:
-                this.cubicCoefficients();
-                this.yCalc = this.cubicEntity;
-                break;
-            case 5:
                 this.exponentialCoefficients();
                 this.yCalc = this.exponentialEntity;
                 break;
-            case 6:
+            case 5:
                 this.logarithmicCoefficients();
                 this.yCalc = this.logarithmicEntity;
                 break;
-            case 7:
+            case 6:
                 this.sinusCoefficients();
                 this.yCalc = this.sinusEntity;
                 break;
-            case 8:
+            case 7:
                 this.rootCoefficients();
                 this. yCalc = this.rootEntity;
                 break;
-            case 9:
+            case 8:
                 this.piecewiseCoefficients();
                 this.yCalc = this.piecewiseEntity;
+                break;
+            case 9:
+                this.cubicCoefficients();
+                this.yCalc = this.cubicEntity;
                 break;
             default:
                 console.log("Invalid type");
@@ -162,13 +162,13 @@ class Enemy extends Entity
     //Entity that moves with a exponential function
     exponentialEntity()
     {
-        return this.b*this.a**this.x
+        return this.b*this.a**this.x;
     }
 
     exponentialCoefficients()
     {
-        this.a = 10**((Math.log10(this.yr/this.yl)) / (this.xr-this.xl))
-        this.b = this.yl/(this.a**this.a.xl)
+        this.a = 2**((Math.log2(this.yr/this.yl)) / (this.xr-this.xl));
+        this.b = this.yl/(this.a**(this.xl));
     }
 
     //Entity that moves with a logarithmic function
