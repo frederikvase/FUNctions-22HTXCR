@@ -103,6 +103,8 @@ class GameManager
 
     spawnNextWave()
     {
+        if (!this.isDoneLoading()) return;
+
         let typesCount = this.levels[this.level].types.length;
 
         for (let i = 0; i < this.levels[this.level].count; i++)
