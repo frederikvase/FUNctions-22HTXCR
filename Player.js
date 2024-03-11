@@ -70,4 +70,8 @@ class Player extends Entity
     {
         this.y = constrain(this.y, 0, height - this.yScale * 35)
     }
+    
+    getBullets(){
+        return this.bullets;
+    }
 }
