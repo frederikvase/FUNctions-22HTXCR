@@ -134,8 +134,7 @@ class Enemy extends Entity
     //Entity that moves with a quadratic function
     quadraticEntity()
     {
-        this.y = this.a * pow(this.x,2) + this.b * this.x + this.c;
-
+        return(this.a * pow(this.x,2) + this.b * this.x + this.c);
     }
 
     quadraticCoefficients()
