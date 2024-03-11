@@ -1,55 +1,70 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, xStart = -20, speedX = 1)
+    constructor(enemyType, x1 = -20, x2 = width / 2, x3 = width, speedX = 1)
     {
         let yStart = random(0, height); 
         let yMid = random(0, height);
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", x1, yStart, speedX, 0, 1, 1);
 
         this.enemyType = enemyType;
-        this.xStart = xStart;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.x3 = x3;
         this.y1 = yStart;
         this.y2 = yMid;
         this.y3 = yFinish;
-    }
+        this.y = 0;
 
-    enemyMove()
-    {
-        switch(this.enemyType) //If new function is added, add another case here
+        switch(this.enemyType)
         {
             case 1:
-                this.constantEntity();
+                this.constantCoefficients();
+                this.yCalc = this.constantEntity;
                 break;
             case 2:
-                this.linearEntity();
+                this.linearCoefficients();
+                this.yCalc = this.linearEntity;
                 break;
             case 3:
-                this.quadraticEntity();
+                this.quadraticCoefficients();
+                this.yCalc = this.quadraticEntity;
                 break;
             case 4:
-                this.cubicEntity();
+                this.cubicCoefficients();
+                this.yCalc = this.cubicEntity;
                 break;
             case 5:
-                this.exponentialEntity();
+                this.exponentialCoefficients();
+                this.yCalc = this.exponentialEntity;
                 break;
             case 6:
-                this.logarithmicEntity();
+                this.logarithmicCoefficients();
+                this.yCalc = this.logarithmicEntity;
                 break;
             case 7:
-                this.sinusEntity();
+                this.sinusCoefficients();
+                this.yCalc = this.sinusEntity;
                 break;
             case 8:
-                this.rootEntity();
+                this.rootCoefficients();
+                this. yCalc = this.rootEntity;
                 break;
             case 9:
-                this.piecewiseEntity();
+                this.piecewiseCoefficients();
+                this.yCalc = this.piecewiseEntity;
                 break;
             default:
                 console.log("Invalid type");
                 break;
         }
+    }
+
+    enemyMove()
+    {
+       this.x = this.x + this.xSpeed; 
+       this.y = this.yCalc(xVal);
     }
 
     //Returns the x- and y-coordinates of the hostile entity
@@ -95,17 +110,23 @@ class Enemy extends Entity
     //Entity that moves with a constant function
     constantEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.y = this.y1;
+
+    }
+
+    constantCoefficients()
+    {
+
     }
 
     //Entity that moves with a linear function
     linearEntity()
     {
-        this.x = this.x + this.xSpeed;
-        this.k = (this.y2 - this.y1) / ((width + (this.sprite.height * this.yScale) / 2) - this.xStart);
-        this.startY = this.y1 - (((this.y2 - this.y1) / ((width + (this.sprite.height * this.yScale) / 2) - this.xStart)) * this.xStart);
-        this.y = (this.k * this.x) + this.startY;
+
+    }
+
+    linearCoefficients()
+    {
+        
     }
 
     //Entity that moves with a quadratic function
@@ -114,10 +135,20 @@ class Enemy extends Entity
 
     }
 
+    quadraticCoefficients()
+    {
+        
+    }
+
     //Entity that moves with a cubic function
     cubicEntity()
     {
 
+    }
+
+    cubicCoefficients()
+    {
+        
     }
 
     //Entity that moves with a exponential function
@@ -126,10 +157,20 @@ class Enemy extends Entity
 
     }
 
+    exponentialCoefficients()
+    {
+        
+    }
+
     //Entity that moves with a logarithmic function
     logarithmicEntity()
     {
  
+    }
+
+    logarithmicCoefficients()
+    {
+        
     }
 
     //Entity that moves with a sinus function/curve
@@ -138,15 +179,30 @@ class Enemy extends Entity
 
     }
 
+    sinusCoefficients()
+    {
+        
+    }
+
     //Entity that moves with a root function
     rootEntity()
     {
 
     }
 
+    rootCoefficients()
+    {
+        
+    }
+
     //Entity that moves with different functions at different x-value intervals
     piecewiseEntity()
     {
 
+    }
+
+    piecewiseCoefficients()
+    {
+        
     }
 }
