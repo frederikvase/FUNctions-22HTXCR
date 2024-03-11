@@ -64,7 +64,7 @@ class Enemy extends Entity
     enemyMove()
     {
        this.x = this.x + this.xSpeed; 
-       this.y = this.yCalc(xVal);
+       this.y = this.yCalc(this.x);
     }
 
     //Returns the x- and y-coordinates of the hostile entity
