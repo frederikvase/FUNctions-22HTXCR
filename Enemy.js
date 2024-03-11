@@ -1,17 +1,17 @@
 class Enemy extends Entity
 {
-    constructor(enemyType, xl = -20, speedX = 1)
+    constructor(enemyType, xStart = -20, speedX = 1)
     {
         let yStart = random(0, height); 
         let yMid = random(0, height);
         let yFinish = random(0, height); 
 
-        super("enemy" + [enemyType] +".png", xl, yStart, speedX, 0, 1, 1);
+        super("enemy" + [enemyType] +".png", xStart, yStart, speedX, 0, 1, 1);
 
         this.xSpeed = speedX;
 
         this.enemyType = enemyType;
-        this.xl = xl; //Same as x1
+        this.xl = 0; //Same as x1
         this.xm = width / 2; //For the functions that need three points (same as x2 if there is three points)
         this.xr = width; //Same as x2 (unless it one with three points, then it is x3)
         this.yl = yStart;
@@ -173,27 +173,27 @@ class Enemy extends Entity
     //Entity that moves with a logarithmic function
     logarithmicEntity()
     {
-
-      this.y = this.a * log(this.x)+this.d;
-      return(this.y);
+      return this.a * log(this.x)+this.d;
     }
 
     logarithmicCoefficients()
     {
-        this.a=(this.yr-this.yl)/(log(this.xr)-log(this.xl))
-        this.d=this.yl-this.a*log(xl);
-   
+        this.a = (this.yr - this.yl) / (log(this.xr)-log(this.xl+40))
+        this.d = this.yl - this.a * log(this.xl+40);
     }
 
     //Entity that moves with a sinus function/curve
     sinusEntity()
     {   
-
+        this.y = this.amplitude * sin(omega * this.x) + this.y1;
+        return(this.y);
     }
 
-    sinusCoefficients()
+    //The sex variable adjusts the period of the function (it's an acronym for sving efter x)
+    sinusCoefficients(sex=2)
     {
-        
+        this.omega = ((acos(((this.y3-this.y1)/(this.y2-this.y1))/2) + 2 * PI * sex)/(this.xm)); //Calculate the frequency of the sine wave
+        this.amplitude = (this.y3-this.y1)/sin(this.xr*this.omega); // Calculate the amplitude of the function
     }
 
     //Entity that moves with a root function
