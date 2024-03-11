@@ -139,11 +139,11 @@ class Enemy extends Entity
 
     quadraticCoefficients()
     {
-        this.a = ((this.x3-this.x2)*(this.y2-this.y1)-(this.x2-this.x1)*(this.y3-this.y2))/(pow(this.x2,2)*this.x3 - pow(this.x1,2)*this.x2 - pow(this.x2,3) + pow(this.x1,2)*this.x2 - pow(this.x3,2)*x2 + pow(this.x2,3) + pow(this.x3,2)*x1 - pow(this.x2,2)*this.x1);
+        this.a = ((this.xr-this.xm)*(this.ym-this.yl)-(this.xm-this.xl)*(this.yr-this.ym))/(pow(this.xm,2)*this.xr - pow(this.xl,2)*this.xm - pow(this.xm,3) + pow(this.xl,2)*this.xm - pow(this.xr,2)*xm + pow(this.xm,3) + pow(this.xr,2)*xl - pow(this.xm,2)*this.xl);
 
-        this.b = (this.y2 - this.y1 - (a*pow(x2,2)) + (a*(pow(this.x1,2))) ) / (this.x2-this.x1);
+        this.b = (this.ym - this.yl - (a*pow(xm,2)) + (a*(pow(this.xl,2))) ) / (this.xm-this.xl);
         
-        this.c = this.y1 - (a*this.x1) - (b*this.x1);    
+        this.c = this.yl - (a*this.xl) - (b*this.xl);    
     }
 
     //Entity that moves with a cubic function
