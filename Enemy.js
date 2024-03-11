@@ -185,28 +185,27 @@ class Enemy extends Entity
     //Entity that moves with a sinus function/curve
     sinusEntity()
     {   
-        this.y = this.amplitude * sin(omega * this.x) + this.y1;
+        this.y = this.amplitude * sin(this.omega * this.x) + this.yl;
         return(this.y);
     }
 
     //The sex variable adjusts the period of the function (it's an acronym for sving efter x)
-    sinusCoefficients(sex=2)
+    sinusCoefficients(sex=1)
     {
-        this.omega = ((acos(((this.y3-this.y1)/(this.y2-this.y1))/2) + 2 * PI * sex)/(this.xm)); //Calculate the frequency of the sine wave
-        this.amplitude = (this.y3-this.y1)/sin(this.xr*this.omega); // Calculate the amplitude of the function
+        this.omega = ((acos(((this.yr-this.yl)/(this.ym-this.yl))/2) + 2 * PI * sex)/(this.xm)); //Calculate the frequency of the sine wave
+        this.amplitude = (this.yr-this.yl)/sin(this.xr*this.omega); // Calculate the amplitude of the function
     }
 
     //Entity that moves with a root function
     rootEntity()
     {
-        this.y = this.a * (1/(this.x + 1)) + this.d;
-        return(this.y);
+        return this.a * (1 / (this.x + 1)) + this.d;
     }
 
     rootCoefficients()
     {
-        this.a = (this.yr - this.yl) / ((1/(this.xr + 1)) - (1/(this.xl + 1)));
-        this.d = this.yl - a * (1/this.xl + 1);
+        this.a = (this.yr - this.yl) / ((1 / (this.xr)) - (1 / (this.xl + width / 4)));
+        this.d = this.yl - this.a * (1 / (this.xl + width / 4));
     }
 
     //Entity that moves with different functions at different x-value intervals

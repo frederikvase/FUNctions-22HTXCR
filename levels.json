@@ -2,31 +2,31 @@
     {
         "count": 5,
         "speed": 5,
-        "types": [6],
+        "types": [7],
         "lifes": 1
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [6],
+        "types": [7],
         "lifes": 18
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [6],
+        "types": [7],
         "lifes": 18
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [6],
+        "types": [7],
         "lifes": 18
     },
     {
         "count": 5,
         "speed": 10,
-        "types": [6],
+        "types": [7],
         "lifes": 18
     }
 ]
