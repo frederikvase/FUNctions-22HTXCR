@@ -10,9 +10,9 @@ class GameManager
 
         this.dataLoaded = false;
 
-        // Load levels
+        // Load levels from file
         this.levels = loadJSON("levels.json", () => {
-            // Levels loaded!
+            // Callback function run when levels file is loaded
             this.dataLoaded = true;
         });
 
@@ -29,6 +29,7 @@ class GameManager
                 localStorage.highscore = JSON.stringify(0);
             }
         }
+        
         this.loadHighscore();   
 
         // Enemies
@@ -37,13 +38,13 @@ class GameManager
 
     /* --------------------- Highscore, score and level functions --------------------- */
 
-    // Update highscore to score if highscore > score
+    // Update highscore to score if highscore > score and save changes
     updateHighscore()
     {
         if (this.score > this.highscore)
         {
             this.highscore = this.score;
-            // Save highsore
+            
             this.saveHighscore();
         }
     }
@@ -74,17 +75,20 @@ class GameManager
         this.score = this.score + amount;
     }
 
+    // Spawn the next wave of enemies and increase level by 1
     spawnNextWave()
     {
         if (!this.isDoneLoading()) return;
 
         let typesCount = this.levels[this.level].types.length;
 
-        for (let i = 0; i < this.levels[this.level].count; i++)
+        for (let i = 0; i < this.levels[this.level].count; i = i + 1)
         {
-            this.enemies.push(new Enemy(this.levels[this.level].types[i % typesCount], -30-i*50, this.levels[this.level].speed));
+            this.enemies.push(
+                new Enemy(this.levels[this.level].types[i % typesCount], -30 - i * 50, this.levels[this.level].speed)
+            );
         }
-        this.level++;
+        this.level = this.level + 1;
     }
 
     /* --------------------- Entity functions --------------------- */
@@ -93,7 +97,7 @@ class GameManager
     updateEnemies()
     {
         // Update enemies
-        for (var i = 0; i < this.enemies.length; i = i + 1)
+        for (let i = 0; i < this.enemies.length; i = i + 1)
         {
             this.enemies[i].enemyMove();
             this.enemies[i].drawSprite();
@@ -126,6 +130,7 @@ class GameManager
 
     /* --------------------- Info/other --------------------- */
 
+    // Check we are done loading level data
     isDoneLoading()
     {
         return this.dataLoaded;
