@@ -199,12 +199,14 @@ class Enemy extends Entity
     //Entity that moves with a root function
     rootEntity()
     {
-
+        this.y = this.a * (1/(this.x + 1)) + this.d;
+        return(this.y);
     }
 
     rootCoefficients()
     {
-        
+        this.a = (this.yr - this.yl) / ((1/(this.xr + 1)) - (1/(this.xl + 1)));
+        this.d = this.yl - a * (1/this.xl + 1);
     }
 
     //Entity that moves with different functions at different x-value intervals
