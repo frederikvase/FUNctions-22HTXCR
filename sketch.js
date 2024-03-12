@@ -1,5 +1,7 @@
 let player, sky, gameManager;
 
+let arrExplosions = [];
+
 //let enemies = [];
 let enemyTimer = 0;
 let timeBetweenEnemies = 1;
@@ -27,6 +29,8 @@ function draw()
 {
   background(20);
   gameManager.displayInfo(0, 0);
+
+  runExplosions(arrExplosions);
 
   sky.show();
 
