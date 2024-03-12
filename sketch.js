@@ -28,6 +28,7 @@ function setup()
 function draw() 
 {
   background(20);
+  noCursor();
   gameManager.displayInfo(0, 0);
 
   runExplosions(arrExplosions);
