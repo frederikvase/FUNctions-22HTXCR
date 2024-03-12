@@ -99,6 +99,7 @@ class GameManager
             {
                 if (bullets[i].checkCollision(this.enemies[j], 30))
                 {
+                    arrExplosions.push(new Explosion(this.enemies[j].x, this.enemies[j].y, 5, 1, 0.1, 2, 3));
                     this.enemies.splice(j, 1);
                     this.addToScore(1);
                     break;
