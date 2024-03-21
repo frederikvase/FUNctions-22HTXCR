@@ -14,7 +14,7 @@ function preload()
 
 function setup()
 {
-  createCanvas(1920, 1080);
+  createCanvas(windowWidth, windowHeight);
   noSmooth();
 
   sky = new Sky();
@@ -28,6 +28,7 @@ function setup()
 function draw() 
 {
   background(20);
+  noCursor();
   gameManager.displayInfo(0, 0);
 
   runExplosions(arrExplosions);
