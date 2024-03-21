@@ -15,6 +15,8 @@ class Player extends Entity
         this.bulletSpeed = bulletSpeed;
         this.shootTimer = 0;
         this.mostShotsPerSecond = mostShotsPerSecond;
+
+        this.playerHealth = 3;
     }
 
     handleInput()
@@ -73,5 +75,19 @@ class Player extends Entity
     
     getBullets(){
         return this.bullets;
+    }
+
+    getPosition(){
+        return [this.x, this.y]
+    }
+    
+    updatePlayerHealth(value)
+    {
+        this.playerHealth += value;
+    }
+
+    isPlayerDead()
+    {
+        return this.playerHealth <= 0;
     }
 }

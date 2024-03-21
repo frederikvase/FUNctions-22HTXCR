@@ -84,7 +84,21 @@ class Enemy extends Entity
         }
         return false;
     }
-
+    
+    correctEnemyPlayerCollision(playerCoords)
+    {
+        if(playerCoords[1] + 10 < this.y && playerCoords[1] + 70 > this.y){
+            if (playerCoords[0] + 10 < this.x && playerCoords[0] + 80 > this.x)
+            {
+                return true
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+       
+    }
     //Returns the hostile enemy's x-koordinate and can then be checked deleted if out of bounds (width)
     deleteEnemyEntity()
     {

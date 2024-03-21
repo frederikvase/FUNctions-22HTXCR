@@ -49,4 +49,17 @@ function draw()
     gameManager.updateEnemies();
     gameManager.handleProjectileCollisions(player.getBullets());
   }
+
+  //Check for collisions between player an enemies
+  if(gameManager.projectilePlayerCollision(player.getPosition()))
+  {
+    player.updatePlayerHealth(-1);
+  }
+
+  //Is player has no health left
+  if(player.isPlayerDead())
+  {
+    location.reload(); //Should probably be changed
+  }
+  
 }

@@ -106,6 +106,23 @@ class GameManager
                 }
             }
         }
+
+    }
+
+    projectilePlayerCollision(playerCoords)
+    {
+        for(let i = 0; i< this.enemies.length; i++)
+        {
+            if(this.enemies[i].correctEnemyPlayerCollision(playerCoords))
+            {
+                console.log("Player got hit");
+                this.enemies.splice(i, 1);
+                return true
+                
+            }
+        }
+        //View collision collider on player
+        //rect(playerCoords[0] + 10, playerCoords[1] + 10, 80, 70);
     }
 
     /* --------------------- Enemy functions --------------------- */
