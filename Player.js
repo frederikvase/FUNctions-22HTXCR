@@ -17,26 +17,26 @@ class Player extends Entity
         this.mostShotsPerSecond = mostShotsPerSecond;
     }
 
-    handleInput()
+    handleInput(shoot)
     {
         let dt = 1/30;
 
-        if(keyIsDown(87)) // W
-        {
-            if (this.ySpeed > -this.maxSpeed)
-                this.setSpeedY(this.ySpeed - this.acc * dt);
-            else
-                this.setSpeedY(-this.maxSpeed);
-        }
-        if(keyIsDown(83)) // S
-        {
-            if (this.ySpeed < this.maxSpeed)
-                this.setSpeedY(this.ySpeed + this.acc * dt);
-            else
-                this.setSpeedY(this.maxSpeed);
-        }
+        // if(keyIsDown(87)) // W
+        // {
+        //     if (this.ySpeed > -this.maxSpeed)
+        //         this.setSpeedY(this.ySpeed - this.acc * dt);
+        //     else
+        //         this.setSpeedY(-this.maxSpeed);
+        // }
+        // if(keyIsDown(83)) // S
+        // {
+        //     if (this.ySpeed < this.maxSpeed)
+        //         this.setSpeedY(this.ySpeed + this.acc * dt);
+        //     else
+        //         this.setSpeedY(this.maxSpeed);
+        // }
 
-        if (this.shootTimer <= 0 && keyIsDown(32))
+        if (this.shootTimer <= 0 && shoot)
         {
             this.shoot();
             this.shootTimer = 1 / this.mostShotsPerSecond;
@@ -44,7 +44,7 @@ class Player extends Entity
         else
             this.shootTimer -= dt;
         
-        this.setSpeedY(this.ySpeed * 0.95);
+        // this.setSpeedY(this.ySpeed * 0.95);
     }
 
     shoot()
