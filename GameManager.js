@@ -5,6 +5,7 @@ class GameManager
         this.highscore = 0;
         this.score = 0;
         this.level = 0;
+        this.playerHealth = undefined;
 
         this.font = font;
 
@@ -65,7 +66,7 @@ class GameManager
     displayInfo(x = 0, y = 0)
     {        
         // Update and display infobox
-        this.infoBox.setText(["Highscore: " + this.highscore, "Score: " + this.score, "Level: " + this.level]);
+        this.infoBox.setText(["Highscore: " + this.highscore, "Score: " + this.score, "Level: " + this.level, "Lives: " + this.playerHealth]);
         this.infoBox.display(x, y);
     }
 
@@ -199,5 +200,10 @@ class GameManager
     isDoneLoading()
     {
         return this.dataLoaded;
+    }
+
+    setPlayerHealth(health)
+    {
+        this.playerHealth = health;
     }
 }

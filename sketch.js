@@ -59,6 +59,7 @@ function draw()
 
   background(20);
   noCursor();
+  gameManager.setPlayerHealth(player.getHealth());
   gameManager.displayInfo(0, 0);
 
   runExplosions(arrExplosions);
