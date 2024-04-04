@@ -5,11 +5,23 @@ let arrExplosions = [];
 //let enemies = [];
 let enemyTimer = 0;
 let timeBetweenEnemies = 1;
+let enemyDeathSound;
 
 let font;
+
 function preload()
 {
   font = loadFont('/assets/retrofont.ttf');
+
+  enemyDeathSound = [
+    loadSound('soundfiles/Enemies Death/metalSke.mp3'), 
+    loadSound('soundfiles/Enemies Death/Skildpade.mp3'),
+    loadSound('soundfiles/Enemies Death/stick.mp3'),
+    loadSound('soundfiles/Enemies Death/plastikSke.mp3'),
+    loadSound('soundfiles/Enemies Death/klud.mp3'),
+    loadSound('soundfiles/Enemies Death/felix.mp3'),
+    loadSound('soundfiles/Enemies Death/lekkerlyd.mp3')
+  ];
 }
 
 function setup()
@@ -17,12 +29,16 @@ function setup()
   createCanvas(windowWidth, windowHeight);
   noSmooth();
 
+
   sky = new Sky();
   player = new Player(12, 45, 3, 20, 5, 30);
   gameManager = new GameManager(font);
 
   textSize(45);
   frameRate(60);
+}
+
+function mousePressed() {
 }
 
 function draw() 

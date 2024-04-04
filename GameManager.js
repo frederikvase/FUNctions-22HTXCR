@@ -100,6 +100,37 @@ class GameManager
                 if (bullets[i].checkCollision(this.enemies[j], 30))
                 {
                     arrExplosions.push(new Explosion(this.enemies[j].x, this.enemies[j].y, 5, 1, 0.1, 2, 3));
+
+                    switch(this.enemies[j].enemyType)
+                    {
+                        case 1:
+                            enemyDeathSound[0].setVolume(0.5);
+                            enemyDeathSound[0].play();
+                            break;
+                        case 2:
+                            enemyDeathSound[1].setVolume(1);
+                            enemyDeathSound[1].play();
+                            break;
+                        case 3:
+                            enemyDeathSound[2].setVolume(1);
+                            enemyDeathSound[2].play();
+                            break;
+                        case 4:
+                            enemyDeathSound[3].setVolume(0.3);
+                            enemyDeathSound[3].play();
+                            break;
+                        case 5:
+                            enemyDeathSound[4].play();
+                            break;
+                        case 6:
+                            enemyDeathSound[5].setVolume(2);
+                            enemyDeathSound[5].play();
+                            break;
+                        case 7:
+                            enemyDeathSound[6].setVolume(0.5);
+                            enemyDeathSound[6].play();
+                            break;
+                    }
                     this.enemies.splice(j, 1);
                     this.addToScore(1);
                     break;
