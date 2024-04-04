@@ -92,4 +92,9 @@ class Player extends Entity
     {
         return this.playerHealth <= 0;
     }
+
+    getHealth()
+    {
+        return this.playerHealth;
+    }
 }
