@@ -22,7 +22,7 @@ function preload()
   stjerneskudGuitar = loadSound('/assets/stjerneskud/StjerneskudGuitar');
   stjerneskudDase = loadSound('/assets/stjerneskud/StjerneskudDase');
 
-  backgroundMusic = loadSound("soundfiles/BackgroundMusic")
+  backgroundMusic = loadSound("soundfiles/SpaceRaft")
   backgroundMusic.setVolume(0.2);
   
   enemyDeathSound = [
