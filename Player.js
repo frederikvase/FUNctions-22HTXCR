@@ -2,7 +2,7 @@
 
 class Player extends Entity
 {
-    constructor(maxSpeed, acc, scale, distanceToEdge, mostShotsPerSecond, bulletSpeed)
+    constructor(maxSpeed, acc, scale, distanceToEdge, mostShotsPerSecond, bulletSpeed, firingSound)
     {
         super("player90.png", width - scale * 30 - distanceToEdge, height / 2, 0, 0, scale, scale);
         
@@ -17,6 +17,7 @@ class Player extends Entity
         this.mostShotsPerSecond = mostShotsPerSecond;
 
         this.playerHealth = 3;
+        this.firingSound = firingSound;
     }
 
     handleInput()
@@ -52,6 +53,7 @@ class Player extends Entity
     shoot()
     {
         this.bullets.push(new Projectile("bigbullet.png", this.x, this.y + this.yScale * 15, -this.bulletSpeed, 0, this.xScale * 0.8, this.yScale * 0.8));
+        this.firingSound.play();
     }
 
     drawBullets()

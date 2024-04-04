@@ -7,6 +7,9 @@ let enemyTimer = 0;
 let timeBetweenEnemies = 1;
 let enemyDeathSound;
 
+//
+let projectileFiringSound;
+
 let font;
 
 function preload()
@@ -22,6 +25,8 @@ function preload()
     loadSound('soundfiles/Enemies Death/felix.mp3'),
     loadSound('soundfiles/Enemies Death/lekkerlyd.mp3')
   ];
+
+  projectileFiringSound = loadSound('soundfiles/ProjectileFiringSound/ProjectileBamAudio.mp3');
 }
 
 function setup()
@@ -31,7 +36,7 @@ function setup()
 
 
   sky = new Sky();
-  player = new Player(12, 45, 3, 20, 5, 30);
+  player = new Player(12, 45, 3, 20, 5, 30, projectileFiringSound);
   gameManager = new GameManager(font);
 
   textSize(45);
