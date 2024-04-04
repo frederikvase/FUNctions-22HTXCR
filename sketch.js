@@ -21,6 +21,9 @@ function preload()
   stjerneskudSalt = loadSound('/assets/stjerneskud/StjerneskudSaltNy2');
   stjerneskudGuitar = loadSound('/assets/stjerneskud/StjerneskudGuitar');
   stjerneskudDase = loadSound('/assets/stjerneskud/StjerneskudDase');
+
+  backgroundMusic = loadSound("soundfiles/BackgroundMusic")
+  backgroundMusic.setVolume(0.2);
   
   enemyDeathSound = [
     loadSound('soundfiles/Enemies Death/metalSke.mp3'), 
@@ -42,7 +45,6 @@ function setup()
   createCanvas(windowWidth, windowHeight);
   noSmooth();
 
-
   sky = new Sky();
   player = new Player(12, 45, 3, 20, 5, 30, projectileFiringSound);
   gameManager = new GameManager(font);
@@ -51,12 +53,29 @@ function setup()
   frameRate(60);
 }
 
+let canPlayMusic = true
+function PlaylistHandler()
+{
+  if(canPlayMusic)
+  {
+    backgroundMusic.play();
+  }
+  if(backgroundMusic.isPlaying())
+  {
+    canPlayMusic = false;
+  }
+  else
+  {
+    canPlayMusic = true;
+  }
+}
+
 function mousePressed() {
 }
 
 function draw() 
 {
-
+  PlaylistHandler();
   background(20);
   noCursor();
   gameManager.displayInfo(0, 0);
