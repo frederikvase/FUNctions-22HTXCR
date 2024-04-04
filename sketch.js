@@ -1,6 +1,7 @@
 let player, sky, gameManager;
 
 let arrExplosions = [];
+let stjerneskudSalt;
 
 //let enemies = [];
 let enemyTimer = 0;
@@ -10,10 +11,17 @@ let font;
 function preload()
 {
   font = loadFont('/assets/retrofont.ttf');
+
+  soundFormats('mp3', 'ogg');
+  stjerneskudSalt = loadSound('/assets/stjerneskud/StjerneskudSaltNy2');
+  stjerneskudGuitar = loadSound('/assets/stjerneskud/StjerneskudGuitar');
+  stjerneskudDase = loadSound('/assets/stjerneskud/StjerneskudDase')
 }
 
 function setup()
 {
+  //getAudioContext().suspend();
+
   createCanvas(windowWidth, windowHeight);
   noSmooth();
 
@@ -27,6 +35,7 @@ function setup()
 
 function draw() 
 {
+
   background(20);
   noCursor();
   gameManager.displayInfo(0, 0);

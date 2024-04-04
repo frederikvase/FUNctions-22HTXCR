@@ -28,8 +28,6 @@ class Star extends Entity
         this.currentX = this.startX;
         this.currentY = this.startY;
         this.maxDistance = dist(this.startX, this.startY, this.endX, this.endY);
-
-        
     } 
   
 
@@ -53,6 +51,7 @@ class Star extends Entity
 
     }
     shootingStar(){
+
       // moves the shooiting star
       this.currentX = lerp(this.currentX, this.endX, 0.01);
       this.currentY = lerp(this.currentY, this.endY, 0.02);
@@ -71,6 +70,7 @@ class Star extends Entity
 
       // Starts the shooting star again when it reaches 95% of the distance
       if (afstand > this.maxDistance * 0.95) {
+        stjerneskudSalt.play();
         this.alfa=0;
         this.glitterSpeed=(this.glitterSpeed*-1)/2;
         this.startX = random(0, 400);
@@ -88,6 +88,8 @@ class Star extends Entity
       fill(245, 229, 127,this.alfa);
       noStroke();
      ellipse(this.currentX, this.currentY, this.radius, this.radius);
+
+
 
     }
     
